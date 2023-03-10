@@ -1,0 +1,79 @@
+
+
+.content p {
+    /* font-size: 1.2rem; */
+    position: relative;
+    z-index: 2;
+
+}
+
+#player2 #player3 {
+    z-index: 0;
+    position: relative;
+
+}
+
+.thinking-about-title {
+    color: rgb(0, 0, 0);
+    font-weight: 600;
+}
+
+#thinking-about {
+    
+    max-width: 50vh;
+    white-space:break-spaces;
+    text-align: center;
+    /* align-items: center; */
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 1;
+    position: relative;
+        /* background-color: ; */
+
+
+
+}
+
+#thinking-about p {
+    font-size: 1rem;
+    
+}
+
+#thinking-about a {
+    white-space: nowrap;
+}
+
+.video-container{
+    pointer-events: none;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    position: relative;
+    opacity: 0%;
+  }
+      
+  iframe {
+    position: absolute;
+    pointer-events: none;
+    top: 25%;
+    left: 25%;
+    width: 40vw;
+    height: 40vh;
+    /* transform: translate(-50%, -50%); */
+    z-index: -1;
+
+  }
+
+  @media screen and (max-width: 700px) {
+    #thinking-about a {
+    
+        
+        white-space:pre-wrap;
+    
+    
+    }
+    iframe {
+        width: 70vw;
+        height: 20vh;
+    }
+  }

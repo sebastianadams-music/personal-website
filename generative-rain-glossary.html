@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sebastian Adams: Programming</title>
+    <link rel="stylesheet" href="css/global.css">
+    <!-- <link rel="stylesheet" href="css/about.css"> -->
+    <!-- Add icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div class="sidebar">
+        <h3 id="sitename" class="sitename">Sebastian Adams</h3><small>Composer/Musician/Artistic Director/Programmer</small><h2 id="menu" class="menu">Menu</h2>
+      </div>
+    <script src="js/sidebar.js"></script>
+      <div class="content">
+        <p class="" style="white-space:pre-wrap;">Generative Rain Glossary (alpha)</p>
+        <p class="" style="white-space:pre-wrap;">I use this page as a live testing place - so don’t be surprised if nothing works. I’m working on music generated using nothing but standard javascript and HTML (using the WebAudio API). This means a complex installation (like my Umbrella project with Jools Gilson) can be realised on any smartphone, without installing any software. Theoretically, I should be able to extend this to take advantage of the sensors in <a href="https://developers.google.com/web/updates/2017/09/sensors-for-the-web">smartphones</a></p>
+        <div class="sqs-block code-block sqs-block-code" data-block-type="23" id="block-98df8c2e7b11bcde4ee9"><div class="sqs-block-content">
+ 
+   
+            <meta charset="utf‐8">
+            <title> Hello web audio </title> 
+            
+                <button class="create-audio" role="switch" aria-checked="false" data-power="on">
+                    <span>create</span>
+                </button>
+                <input type="range" id="volume" class="control-volume" min="0" max="2" value=".002" list="gain-vals" step="0.01" data-action="volume">
+                            <datalist id="gain-vals">
+                                <option value="0" label="min">
+                                </option><option value="2" label="max">
+                            </option></datalist>
+                            <label for="volume">VOL</label>
+                            
+                                        
+               
+               <script>
+            
+               
+                //add an event listener (because audio can't autoplay!)   
+                const createButton = document.querySelector('.create-audio');
+                createButton.addEventListener('click', function(){
+            
+                     //plays rain background noise
+            
+                     var contextRain;
+                    contextRain = new AudioContext();
+                    var rainVolume = contextRain.createGain();    
+                    rainVolume.connect(contextRain.destination);
+                  
+                    
+                    var bufferLoader;
+                    bufferLoader = new BufferLoader(
+                      contextRain, 
+                    //    ['Irish Rain.wav',], rainLoaded
+                    ['https://cors-anywhere.herokuapp.com/https://sebastianadams.squarespace.com/s/Irish-Rain.mp3',
+                    ],
+                    rainLoaded
+                    );
+            
+                    bufferLoader.load();
+                    
+                    function rainLoaded(bufferList) {
+                    // Create two sources and play them both together.
+                    var source2 = contextRain.createBufferSource();
+                    source2.buffer = bufferList[0];
+                    rainVolume.gain.value = .4;
+                    source2.connect(rainVolume); 
+                    source2.start(0);
+                    }
+            
+            
+                    //create the context for the web audio
+                    var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                    //create a volume node and connect to the slider
+                    var volume = audioCtx.createGain();    
+            
+            
+            
+                    
+            
+                    const volumeControl = document.querySelector('[data-action="volume"]');
+                    volumeControl.addEventListener('input', function() {
+                    volume.gain.value = this.value;
+                    }, false);
+                    volume.connect(audioCtx.destination);
+            
+            
+            
+                    //destination = the way out         //
+            
+                    //sets up an oscillator calling sineWave function
+                    //advances the time a random amount
+            
+                   
+            
+                    //plays rain glossary
+            
+                    interval(function(){
+                        init();
+                    }, getRandomInt(5000, 24000), 100)
+                    
+                    
+                    var context;
+                    var bufferLoader;
+            
+                    function init() {
+                    // Fix up prefixing
+                    window.AudioContext = window.AudioContext || window.webkitAudioContext;
+                    context = new AudioContext();
+            
+                    bufferLoader = new BufferLoader(
+                        context, 
+                        [
+                        
+                        'https://cors-anywhere.herokuapp.com/https://sebastianadams.squarespace.com/s/ceobhaisteach.wav',
+                    'https://cors-anywhere.herokuapp.com/https://sebastianadams.squarespace.com/s/Breacla.wav',
+                        'https://cors-anywhere.herokuapp.com/https://sebastianadams.squarespace.com/s/Buisteoig.wav',
+                        'https://cors-anywhere.herokuapp.com/https://sebastianadams.squarespace.com/s/ceobhaisteach.wav',
+                        'https://cors-anywhere.herokuapp.com/https://sebastianadams.squarespace.com/s/ceobhrain.wav',
+                        'https://cors-anywhere.herokuapp.com/https://sebastianadams.squarespace.com/s/dile.wav',
+                        'https://cors-anywhere.herokuapp.com/https://sebastianadams.squarespace.com/s/labogbreanach.wav',
+                        'https://cors-anywhere.herokuapp.com/https://sebastianadams.squarespace.com/s/salacharbhaisti.wav',
+                        'https://cors-anywhere.herokuapp.com/https://sebastianadams.squarespace.com/s/seadbhaisteach.wav',
+            
+                        ],
+                        finishedLoading
+                        );
+            
+                    bufferLoader.load();
+                    }
+            
+                    function finishedLoading(bufferList) {
+                    // Create two sources and play them both together.
+                    var source1 = context.createBufferSource();
+                    var source2 = context.createBufferSource();
+                    source1.buffer = bufferList[getRandomInt(0, 7)];
+                    source2.buffer = bufferList[8];
+            
+                    source1.connect(context.destination);
+                    source1.start(0);
+                    }
+                    
+            
+                    var fund = 4.125; //32.5hz originally
+                    var dur = .4; // minimum notelength
+                    var t = audioCtx.currentTime;
+                    for (var i = 0; i < 100; i++){
+                         //create oscillator, connect to pitch slider
+                        sineWave(t, fund, dur);
+                        t = t + getRandomInt(1, 10);
+                    }
+            
+                    //sets up an another oscillator 
+                    
+                    var fund = 15; //66hz originally
+                    var dur = 1.6; // minimum notelength
+                    var t = audioCtx.currentTime;
+                    for (var i = 0; i < 20; i++){
+                         //create oscillator, connect to pitch slider
+                        sineWave(t, fund, dur);
+                        t = t + getRandomInt(1, 10);
+                    }
+                    
+                    //sets up an another oscillator 
+            
+                    var fund = 16.25; //21hz originally
+                    var dur = .3; // minimum notelength
+                    var t = audioCtx.currentTime;
+                    for (var i = 0; i < 20; i++){
+                         //create oscillator, connect to pitch slider
+                        sineWave(t, fund, dur);
+                        t = t + getRandomInt(1, 10);
+                    }
+            
+                    //sets up an another oscillator 
+            
+                    var fund = 11.5; //21hz originally
+                    var dur = 1.2; // minimum notelength
+                    var t = audioCtx.currentTime;
+                    for (var i = 0; i < 20; i++){
+                         //create oscillator, connect to pitch slider
+                        sineWave(t, fund, dur);
+                        t = t + getRandomInt(1, 10);
+                    }
+            
+                    //a function that creates a bunch of very short sine waves in a row; again this calls sineWave
+            
+                    function fastLoop(pitch) {
+                    var fund = pitch;
+                    var dur = .1; // minimum notelength
+                    var t = audioCtx.currentTime;
+                    for (var i = 0; i < 25; i++){
+                         //create oscillator, connect to pitch slider
+                        sineWave(t, fund, dur);
+                        t = t + .1;
+                        
+                        }
+                    }
+            
+            
+                
+            
+            
+            // calls the interval function with fastLoop function inside; to make a series of fastLoops separated by a time
+            interval(function(){
+                    fastLoop(40);
+                    }, getRandomInt(17000, 27000), 10)
+            
+                            //SET INTERVAL (Call a function, wait and then repeat a certain number of times)
+                    //THANKS TO https://bit.ly/1ZlB1D4 
+            
+                    function interval(func, wait, repeats) {
+                        console.log("interval runs");
+                        var interv = function(w, r) {
+                            return function() {
+                                if (typeof r === "undefined" || r-- > 0) {
+                                    setTimeout(interv, w);
+                                    try {
+                                        func.call(null);
+                                    } catch (e) {
+                                        r = 0;
+                                        throw e.toString();
+                                    }
+                                }
+                            };
+                        }(wait, repeats);
+            
+                        setTimeout(interv, wait);
+                    };
+            
+                //SINE WAVE GENERATOR
+            
+                    function sineWave(t, pitch, dur) {
+                        var sine = audioCtx.createOscillator();
+                        sinefreq = pitchRandom(fund); //calls pitchRandom with fundamental pitch
+                        sine.frequency.value = sinefreq;
+                        console.log(sinefreq);
+                        var localvolume = audioCtx.createGain();
+                        localvolume.gain.value = volumeRandom(); //sets a random volume
+                        sine.type = "sine";
+                        sine.start(t);
+                        sine.stop(t + dur * getRandomInt(1, 10)); //randomises the stop time (i.e. length)
+                        sine.connect(localvolume);
+                        localvolume.connect(volume);
+                        volume.gain.value = .25;
+                        if (Math.random() > .8) {  // this if statement occasionally hooks on an extra, dissonant sine wave
+                            var sine = audioCtx.createOscillator();
+                            //sine.frequency.value = pitch;
+                            sinefreq = pitchRandom(sinefreq + 5);
+                            sine.frequency.value = sinefreq;
+                            console.log(sinefreq);
+                            var localvolume = audioCtx.createGain();
+                            localvolume.gain.value = volumeRandom();
+                            sine.type = "sine";
+                            sine.start(t + .25);
+                            sine.stop(t + dur + getRandomInt(1, 10));
+                            sine.connect(localvolume);
+                            localvolume.connect(volume);
+                        }
+                    }
+            
+               
+            
+                 
+                    //random number functions
+            
+                    function pitchRandom(fund) {
+                     return   (12 + Math.floor(Math.random() * 12)) * fund;
+                     //   Math.floor(Math.random() * 101); // for testing         
+                    }
+                    function getRandomInt(min, max) {
+                        return Math.floor(Math.random() * (max - min + 1)) + min;
+                    }
+                    function volumeRandom() {
+                        return Math.floor(Math.random() * (.4) ) + .05;
+                    }
+            
+            
+                    })
+            
+            //buffer loader pasted from https://www.html5rocks.com/en/tutorials/webaudio/intro/js/buffer-loader.js
+            
+            function BufferLoader(context, urlList, callback) {
+              this.context = context;
+              this.urlList = urlList;
+              this.onload = callback;
+              this.bufferList = new Array();
+              this.loadCount = 0;
+            }
+            
+            BufferLoader.prototype.loadBuffer = function(url, index) {
+              // Load buffer asynchronously
+              var request = new XMLHttpRequest();
+              request.open("GET", url, true);
+              request.responseType = "arraybuffer";
+            
+              var loader = this;
+            
+              request.onload = function() {
+                // Asynchronously decode the audio file data in request.response
+                loader.context.decodeAudioData(
+                  request.response,
+                  function(buffer) {
+                    if (!buffer) {
+                      alert('error decoding file data: ' + url);
+                      return;
+                    }
+                    loader.bufferList[index] = buffer;
+                    if (++loader.loadCount == loader.urlList.length)
+                      loader.onload(loader.bufferList);
+                  },
+                  function(error) {
+                    console.error('decodeAudioData error', error);
+                  }
+                );
+              }
+            
+              request.onerror = function() {
+                alert('BufferLoader: XHR error');
+              }
+            
+              request.send();
+            }
+            
+            BufferLoader.prototype.load = function() {
+              for (var i = 0; i < this.urlList.length; ++i)
+              this.loadBuffer(this.urlList[i], i);
+            }
+            
+              
+               </script>
+            </div></div>
+            <div class="sqs-block html-block sqs-block-html" data-block-type="2" id="block-yui_3_17_2_1_1639337081923_4131"><div class="sqs-block-content">
+
+                <p class="" style="white-space:pre-wrap;">If you can’t hear any rain sounds or text, go to this link and click the button to enable demo access:</p><p class="" style="white-space:pre-wrap;"><a href="https://cors-anywhere.herokuapp.com/corsdemo">https://cors-anywhere.herokuapp.com/corsdemo</a></p>
+                
+                
+                </div></div>
+
+        </div>
+
+
+</body>
+<footer id="footer">
+    <div class="foot-container">
+        <div class="footer-content">
+            <ul class="socials">
+                <li><a href="https://facebook.com/sebastianadamsmusic" target="_blank"><i class="fa fa-facebook-f"></i></a></li>
+                <li><a href="https://www.instagram.com/magicturd/" target="_blank"><i class="fa fa-instagram"></i></a></li>
+                <li><a href="https://github.com/sebastianadams-music" target="_blank"><i class="fa fa-github"></i></a></li>
+                <li><a href="https://www.youtube.com/@sebastianadams" target="_blank"><i class="fa fa-youtube"></i></a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+</html>
+
+
+
+    

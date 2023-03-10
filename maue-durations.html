@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preload" as="font" href="css/fonts/proximanova-thin-webfont.woff2" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" as="font" href="css/fonts/proximanova-thin-webfont.woff" type="font/woff" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/global.css">
+</head>
+<body>
+    <div class="sidebar">
+        <h3 id="sitename" class="sitename">Sebastian Adams</h3><small>Composer/Musician/Artistic Director/Programmer</small><h2 id="menu" class="menu">Menu</h2>
+      </div>
+    <script src="js/sidebar.js"></script>
+
+    <div class="content sqs-block-content">
+
+        <h2 style="white-space:pre-wrap;">&nbsp;Calculator for Kenneth Maue’s 2^n Durations Piece</h2><p class="" style="white-space:pre-wrap;">Kenneth Maue is a wonderful composer/artist whose work I got to know from the John Lely/James Saunders book <em>Word Events</em>.<br><br>Maue’s piece<em> 2^n Durations Music </em>suggests making a series of durations which increase in powers of 2 until a designated maximum. When this is reached, it counts back down (including a repetition of the highest value). These numbers represent the gap in seconds between a sonic event synchronised between all the performers.</p><p class="" style="white-space:pre-wrap;">I have long wanted to perform this piece and am now preparing for a remote performance with Tom Roseingrave. We will not communicate with one another about our performances other than to set the initial parameters, but need to be sure we are in sync. I decided to write this script which allows you to see the date, time and duration of performances based on a power of 2 and a given starting time.</p><p class="" style="white-space:pre-wrap;">Maue says of the piece: “I have done this twice. The second time, we did a seven-month version, the longest durations in the middle being about 24 days each. These occurrences have left me with lasting impression, as if those two series of durations consisted of time somehow different from other time in my life. I recall getting together with the other people, in the room where we kept the gong and the official clock, often at odd times of day and night. And I remember how the expanding first sections of the event gave me a deep sense of the whole world expanding, and how the contracting sections gave me a sense of moving inward to a center point. I recall the impression of being inside something like a cathedral of time.”</p><p class="" style="white-space:pre-wrap;">Our telepathic version seems an appropriate form of communication during the Covid-19 pandemic: yet another way of reframing a social interaction. </p><p class="" style="white-space:pre-wrap;">Seeing how increasing powers of 2 interact with the passage of time is also surprisingly fascinating and serves as a reminder of the distorting effect of simple ways of notating large numbers. </p>
+
+        <div>
+            <h2><label for="en">2</label>
+                <sup><input type="number" min="1" id="en" value="1"></sup></h2>
+                <input type="datetime-local" id="myDatetimeField">
+                <button type="button" id="refresh"></button>
+                <div id="maximum"></div>
+                <div id="result"></div>   
+            <script>
+            
+            //set date to current date
+            window.addEventListener("load", function() {
+                var now = new Date();
+                var utcString = now.toISOString().substring(0,19);
+                var year = now.getFullYear();
+                var month = now.getMonth() + 1;
+                var day = now.getDate();
+                var hour = now.getHours();
+                var minute = now.getMinutes();
+                var second = now.getSeconds();
+                var localDatetime = year + "-" +
+                                  (month < 10 ? "0" + month.toString() : month) + "-" +
+                                  (day < 10 ? "0" + day.toString() : day) + "T" +
+                                  (hour < 10 ? "0" + hour.toString() : hour) + ":" +
+                                  (minute < 10 ? "0" + minute.toString() : minute) +
+                                  utcString.substring(16,19);
+                var datetimeField = document.getElementById("myDatetimeField");
+                datetimeField.value = localDatetime;
+            });
+            
+            var en_input = document.getElementById('en');
+            en_input.addEventListener('input', mauesPlanner);
+            
+            var myDatetimeField_input = document.getElementById('myDatetimeField');
+            myDatetimeField_input.addEventListener('input', mauesPlanner);
+            
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric'};
+            
+            function mauesPlanner(){
+                document.getElementById("result").innerHTML= "";
+                en = document.getElementById('en');
+                starttime = document.getElementById('myDatetimeField').value;
+                let max_n = en.value;
+            
+                beginFormatter = new Date(starttime); 
+                beginFormat = beginFormatter.toLocaleString(undefined, options); // options defines the format of the time string
+            
+                peak_n = Math.pow(2, max_n);
+                maxhours = Math.floor(peak_n  / 3600);
+                peak_n %= 3600;
+                maxminutes = Math.floor(peak_n  / 60);
+                maxseconds = peak_n  % 60;
+                peak = `<br><br>Longest duration is: ${maxhours} hours, ${maxminutes} minutes and ${maxseconds} seconds`
+                document.getElementById("maximum").innerHTML= peak;
+            
+                document.getElementById("result").innerHTML+= `<br>Start at ${beginFormat} <br> <br>`
+            
+                let current_total_time = starttime;
+            
+                    for (n = 0; n < max_n; n++) {
+                    timeStuff();    
+                    }
+                timeStuff();
+                    for (n = max_n; n >= 0; n--) {
+                    timeStuff(); 
+                    }
+                
+            
+                function timeStuff(){
+                current_n = Math.pow(2, n); //seconds to add
+                n_time = Date.parse(current_total_time) + (current_n * 1000);
+                //const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric'};
+                timeFormatter = new Date(n_time); 
+                dateObject = timeFormatter.toLocaleString(undefined, options); // options defines the format of the time string
+                hours = Math.floor(current_n / 3600);
+                current_n %= 3600;
+                minutes = Math.floor(current_n / 60);
+                seconds = current_n % 60;
+                document.getElementById("result").innerHTML+= `${hours} hours, ${minutes} minutes and ${seconds} seconds <br> starting at ${dateObject} <br> <br>`;
+                current_total_time = timeFormatter;
+            }
+            
+            }
+            
+            
+            
+            
+            
+            </script>
+        </div>
+        
+        
+        </div>
+    
+</body>
+</html>

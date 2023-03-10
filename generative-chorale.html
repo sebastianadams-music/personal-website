@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preload" as="font" href="css/fonts/proximanova-thin-webfont.woff2" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" as="font" href="css/fonts/proximanova-thin-webfont.woff" type="font/woff" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/global.css">
+</head>
+<body>
+    <div class="sidebar">
+        <h3 id="sitename" class="sitename">Sebastian Adams</h3><small>Composer/Musician/Artistic Director/Programmer</small><h2 id="menu" class="menu">Menu</h2>
+      </div>
+    <script src="js/sidebar.js"></script>
+
+<div class="content">
+    <h2>Generative Chorale</h2>
+    <button class="create-audio" role="switch" aria-checked="false" data-power="on">
+        <span>create</span>
+    </button>
+    <input type="range" id="volume" class="control-volume" min="0" max="2" value=".02" list="gain-vals" step="0.01" data-action="volume" />
+                <datalist id="gain-vals">
+                    <option value="0" label="min">
+                    <option value="2" label="max">
+                </datalist>
+                <label for="volume">VOL</label>
+    <script>
+        //add an event listener (because audio can't autoplay!)   
+        const createButton = document.querySelector('.create-audio');
+        createButton.addEventListener('click', function(){
+            //create the context for the web audio
+        var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        //create a volume node and connect to the slider
+        var volume = audioCtx.createGain();
+        
+        const volumeControl = document.querySelector('[data-action="volume"]');
+        volumeControl.addEventListener('input', function() {
+	    volume.gain.value = this.value;
+        }, false);
+        volume.connect(audioCtx.destination);
+        //destination = the way out         //
+        var fund = 32.5;
+        var dur = 4; // minimum notelength
+        var t = audioCtx.currentTime;
+        for (var i = 0; i < 100; i++){
+             //create oscillator, connect to pitch slider
+            sineWave(t, fund, dur);
+            t = t + timeRandom();
+        }
+
+        var fund = 66;
+        var dur = 16; // minimum notelength
+        var t = audioCtx.currentTime;
+        for (var i = 0; i < 20; i++){
+             //create oscillator, connect to pitch slider
+            sineWave(t, fund, dur);
+            t = t + timeRandom();
+        }
+
+        var fund = 65;
+        var dur = 1; // minimum notelength
+        var t = audioCtx.currentTime;
+        for (var i = 0; i < 20; i++){
+             //create oscillator, connect to pitch slider
+            sineWave(t, fund, dur);
+            t = t + timeRandom();
+        }
+
+        var fund = 21;
+        var dur = 12; // minimum notelength
+        var t = audioCtx.currentTime;
+        for (var i = 0; i < 20; i++){
+             //create oscillator, connect to pitch slider
+            sineWave(t, fund, dur);
+            t = t + timeRandom();
+        }
+
+        function sineWave(t, pitch, dur) {
+            var sine = audioCtx.createOscillator();
+            //sine.frequency.value = pitch;
+            sinefreq = pitchRandom(fund);
+            sine.frequency.value = sinefreq;
+            console.log(sinefreq);
+            var localvolume = audioCtx.createGain();
+            localvolume.gain.value = volumeRandom();
+            sine.type = "sine";
+            sine.start(t);
+            sine.stop(t + dur + timeRandom());
+            sine.connect(localvolume);
+            localvolume.connect(volume);
+            if (Math.random() > .8) {
+                var sine = audioCtx.createOscillator();
+                //sine.frequency.value = pitch;
+                sinefreq = pitchRandom(sinefreq + 5);
+                sine.frequency.value = sinefreq;
+                console.log(sinefreq);
+                var localvolume = audioCtx.createGain();
+                localvolume.gain.value = volumeRandom();
+                sine.type = "sine";
+                sine.start(t + .25);
+                sine.stop(t + dur + timeRandom());
+                sine.connect(localvolume);
+                localvolume.connect(volume);
+            }
+        }
+
+        function pitchRandom(fund) {
+         return   Math.floor(Math.random() * 32) * fund;
+         //   Math.floor(Math.random() * 101); // for testing         
+        }
+        function timeRandom() {
+            return Math.floor(Math.random() * 10) + 1;
+        }
+        function volumeRandom() {
+            return Math.floor(Math.random() * (.4) ) + .05;
+        }
+
+
+        })
+       
+        
+
+        
+        
+    
+   </script>
+   <h2>THaasX Deep Sound - something like the THX sound but with lots more partials</h2>
+   <button class="create-thx" role="switch" aria-checked="false" data-power="on">
+    <span>THaasX Deep Note</span>
+</button>
+   <script>
+
+   
+    //add an event listener (because audio can't autoplay!)   
+    const createTHXButton = document.querySelector('.create-thx');
+    createTHXButton.addEventListener('click', function(){
+ window.AudioContext = window.AudioContext||window.webkitAudioContext;
+audioContext = new window.AudioContext();
+
+var compressor = audioContext.createDynamicsCompressor();
+compressor.connect( audioContext.destination );
+
+start_rand_nodes = callPartialsStart();
+end_rand_nodes = callPartialsEnd();
+
+for( var i=0; i<(30 + Math.floor(Math.random() * 79)); i++ )
+{
+	var osc = audioContext.createOscillator();
+	osc.frequency.setValueAtTime( ( 51 * Math.floor( Math.random()*Math.random()*3 + 1) * Math.floor(1 + Math.random() * 11)), 0 );
+	osc.detune.setValueAtTime( Math.random()*20-10, 0 );
+	osc.type = "sawtooth";
+
+	for( var t=0; t<3; t++ )
+	{
+		if( Math.random() < 0.1 )
+		{
+			osc.frequency.exponentialRampToValueAtTime( 200 + Math.random()*200, t*1+Math.random() );
+		}
+	}
+
+	osc.frequency.exponentialRampToValueAtTime(( 51 * Math.floor( Math.random()*Math.random()*3 + 1) * Math.floor(start_rand_nodes + Math.random() * end_rand_nodes)), 8 );
+
+	for( var t=0; t<4; t++ )
+	{
+		osc.detune.setValueAtTime( Math.random()*30-15, t*2+Math.random() );
+	}
+
+	var filter = audioContext.createBiquadFilter();
+	filter.type = "lowpass";
+	filter.frequency.value = 3000 + Math.random()*2000;
+	filter.Q.value = Math.random()*2;
+
+	var amp = audioContext.createGain();
+	amp.gain.setValueAtTime( 0, 0 );
+	amp.gain.linearRampToValueAtTime( 1, 5 + Math.random()*5 );
+	amp.gain.setValueAtTime( 1, 14 );
+	amp.gain.linearRampToValueAtTime( 0, 19 );
+
+	var panner = audioContext.createPanner();
+	panner.setPosition( Math.random()*2-1, Math.random()*2-1, Math.random()*2-1 );
+
+	osc.connect( filter );
+	filter.connect( amp );
+	amp.connect( panner );
+	panner.connect( compressor );
+
+	osc.start(0);
+	osc.stop(20);
+}
+
+
+
+})
+function callPartialsStart(){
+ x =  1 + Math.floor(Math.random() * 12);   
+  return x;
+}
+
+function callPartialsEnd(){
+  y = (3 + Math.floor(Math.random() * 5)) + Math.floor(Math.random() * 17);   
+  return y;
+}
+       
+   </script>
+   <h2>Chorale 2:</h2>
+   <button class="create-audio2" role="switch" aria-checked="false" data-power="on">
+    <span>create</span>
+</button>
+<input type="range" id="volume" class="control-volume" min="0" max="2" value=".02" list="gain-vals" step="0.01" data-action="volume2" />
+            <datalist id="gain-vals">
+                <option value="0" label="min">
+                <option value="2" label="max">
+            </datalist>
+            <label for="volume2">VOL</label>
+                               
+<script>
+
+
+//add an event listener (because audio can't autoplay!)   
+const createButton2 = document.querySelector('.create-audio2');
+createButton2.addEventListener('click', function(){
+    //create the context for the web audio
+    var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    //create a volume node and connect to the slider
+    var volume2 = audioCtx.createGain();
+    
+    const volumeControl2 = document.querySelector('[data-action="volume2"]');
+    volumeControl2.addEventListener('input', function() {
+    volume2.gain.value = this.value;
+    }, false);
+    volume2.connect(audioCtx.destination);
+    //destination = the way out         //
+    var fund = 32.5;
+    var dur = .4; // minimum notelength
+    var t = audioCtx.currentTime;
+    for (var i = 0; i < 100; i++){
+         //create oscillator, connect to pitch slider
+        sineWave(t, fund, dur);
+        t = t + getRandomInt(1, 10);
+    }
+
+    var fund = 66;
+    var dur = 1.6; // minimum notelength
+    var t = audioCtx.currentTime;
+    for (var i = 0; i < 20; i++){
+         //create oscillator, connect to pitch slider
+        sineWave(t, fund, dur);
+        t = t + getRandomInt(1, 10);
+    }
+
+    var fund = 65;
+    var dur = .1; // minimum notelength
+    var t = audioCtx.currentTime;
+    for (var i = 0; i < 20; i++){
+         //create oscillator, connect to pitch slider
+        sineWave(t, fund, dur);
+        t = t + getRandomInt(1, 10);
+    }
+
+    var fund = 21;
+    var dur = 1.2; // minimum notelength
+    var t = audioCtx.currentTime;
+    for (var i = 0; i < 20; i++){
+         //create oscillator, connect to pitch slider
+        sineWave(t, fund, dur);
+        t = t + getRandomInt(1, 10);
+    }
+
+    function fastLoop(pitch) {
+    var fund = pitch;
+    var dur = .1; // minimum notelength
+    var t = audioCtx.currentTime;
+    for (var i = 0; i < 25; i++){
+         //create oscillator, connect to pitch slider
+        sineWave(t, fund, dur);
+        t = t + .1;
+        
+        }
+    }
+    
+ /*
+    function timeOut() {
+   setTimeout(fastLoop(20), 20000);
+   timeOut();
+    }
+    timeOut();
+*/
+
+interval(function(){
+    fastLoop(40);
+    }, 20000, 10)
+
+            //SET INTERVAL
+    //THANKS TO https://bit.ly/1ZlB1D4
+
+    function interval(func, wait, repeats) {
+        console.log("interval runs");
+        var interv = function(w, r) {
+            return function() {
+                if (typeof r === "undefined" || r-- > 0) {
+                    setTimeout(interv, w);
+                    try {
+                        func.call(null);
+                    } catch (e) {
+                        r = 0;
+                        throw e.toString();
+                    }
+                }
+            };
+        }(wait, repeats);
+
+        setTimeout(interv, wait);
+    };
+
+    function sineWave(t, pitch, dur) {
+        var sine = audioCtx.createOscillator();
+        //sine.frequency.value = pitch;
+        sinefreq = pitchRandom(fund);
+        sine.frequency.value = sinefreq;
+        console.log(sinefreq);
+        var localvolume = audioCtx.createGain();
+        localvolume.gain.value = volumeRandom();
+        sine.type = "sine";
+        sine.start(t);
+        sine.stop(t + dur * getRandomInt(1, 10));
+        sine.connect(localvolume);
+        localvolume.connect(volume2);
+        if (Math.random() > .8) {
+            var sine = audioCtx.createOscillator();
+            //sine.frequency.value = pitch;
+            sinefreq = pitchRandom(sinefreq + 5);
+            sine.frequency.value = sinefreq;
+            console.log(sinefreq);
+            var localvolume = audioCtx.createGain();
+            localvolume.gain.value = volumeRandom();
+            sine.type = "sine";
+            sine.start(t + .25);
+            sine.stop(t + dur + getRandomInt(1, 10));
+            sine.connect(localvolume);
+            localvolume.connect(volume2);
+        }
+    }
+
+
+
+ 
+
+
+    function pitchRandom(fund) {
+     return   Math.floor(Math.random() * 32) * fund;
+     //   Math.floor(Math.random() * 101); // for testing         
+    }
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    function volumeRandom() {
+        return Math.floor(Math.random() * (.4) ) + .05;
+    }
+
+
+    })
+    
+
+</script>
+<script type="text/javascript" src="/js/freesound.js"></script>
+<h2>Stacked soundbed using 100000 random files from freesound.org</h1>
+<button class="create-stack" role="switch" aria-checked="false" data-power="on">
+        <span>click to add a random sound</span>
+    </button><br><br>
+    <button id="killAudio" role="switch" aria-checked="false" data-power="on">
+        <span>stop last sound</span>
+    </button>
+    <br>
+    <br>
+    <div id="errorDiv"></div>
+
+    <script type="text/javascript">
+        var index = 0
+        var soundList = []
+        freesound.setToken("hLLHZHTBJqgj8AYPUC8QcnkTgaSGichlISxMvsR0"); //my client key 
+
+        
+
+        window.onload = function(){
+        
+            //add an event listener (because audio can't autoplay!)   
+            const createButton = document.querySelector('.create-stack');
+            createButton.addEventListener('click', function(){
+                        document.getElementById("errorDiv").textContent = ""
+                
+                        index += 1 // keeps tracks of number of sounds created (note: does not currently track sounds that finished playing)
+                        
+                        
+                        var fields = 'id,name,url,analysis,username';
+                        // Example 1
+                        // Example of geeting the info of a sound, queying for similar sounds (content-based) and showing some analysis
+                        // features. Both similar sounds and analysis features are obtained with additional requests to the api.
+                        freesound.getSound(getRandomInt(1, 100000),
+                                function(sound){
+                                    var msg = "";
+                                                                            
+                                    snd = new Audio(sound.previews['preview-hq-mp3']);
+                                    soundList.push(snd);
+                                    console.log(soundList)
+                                    snd.loop = true
+                                    snd.play();
+                                    return soundList, index
+                                    
+                                //    displayMessage(msg,'resp1');                    
+                                }, errorMsg
+                        );
+                        
+        
+                    })
+            
+            document.getElementById("killAudio").addEventListener("click", killAudio);
+            
+            
+        };
+
+        
+        
+
+                
+        
+            
+        
+        
+        function killAudio() {
+            index = index - 1
+                soundList[index].pause()
+                soundList.pop()
+                return soundList, index
+        }
+
+        function errorMsg() {
+        document.getElementById("errorDiv").textContent = "The sound you're looking for has been removed from the internet. Try again, please."
+            console.log("The sound you're looking for has been removed from the internet. Try again, please.")
+        }
+
+        function getRandomInt(min, max) {
+                    return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+        
+        //    function displayError(text){
+          //      document.getElementById('error').innerHTML=text;
+          //  }
+        
+            function displayMessage(text,place){
+                document.getElementById(place).innerHTML=text;
+            }
+        
+        </script>
+        <h2>(stop button not working, refresh the page if it gets too crazy) </h2>
+</div>
+    
+</body>
+</html>

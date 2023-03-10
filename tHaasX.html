@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preload" as="font" href="css/fonts/proximanova-thin-webfont.woff2" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" as="font" href="css/fonts/proximanova-thin-webfont.woff" type="font/woff" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/global.css">
+</head>
+<body>
+    <div class="sidebar">
+        <h3 id="sitename" class="sitename">Sebastian Adams</h3><small>Composer/Musician/Artistic Director/Programmer</small><h2 id="menu" class="menu">Menu</h2>
+      </div>
+    <script src="js/sidebar.js"></script>
+
+<div class="content">
+    
+   <h2>THaasX Deep Sound - something like the THX sound but with lots more partials</h2>
+   <button class="create-thx" role="switch" aria-checked="false" data-power="on">
+    <span>THaasX Deep Note</span>
+</button>
+   <script>
+
+   
+    //add an event listener (because audio can't autoplay!)   
+    const createTHXButton = document.querySelector('.create-thx');
+    createTHXButton.addEventListener('click', function(){
+ window.AudioContext = window.AudioContext||window.webkitAudioContext;
+audioContext = new window.AudioContext();
+
+var compressor = audioContext.createDynamicsCompressor();
+compressor.connect( audioContext.destination );
+
+start_rand_nodes = callPartialsStart();
+end_rand_nodes = callPartialsEnd();
+
+for( var i=0; i<(30 + Math.floor(Math.random() * 79)); i++ )
+{
+	var osc = audioContext.createOscillator();
+	osc.frequency.setValueAtTime( ( 51 * Math.floor( Math.random()*Math.random()*3 + 1) * Math.floor(1 + Math.random() * 11)), 0 );
+	osc.detune.setValueAtTime( Math.random()*20-10, 0 );
+	osc.type = "sawtooth";
+
+	for( var t=0; t<3; t++ )
+	{
+		if( Math.random() < 0.1 )
+		{
+			osc.frequency.exponentialRampToValueAtTime( 200 + Math.random()*200, t*1+Math.random() );
+		}
+	}
+
+	osc.frequency.exponentialRampToValueAtTime(( 51 * Math.floor( Math.random()*Math.random()*3 + 1) * Math.floor(start_rand_nodes + Math.random() * end_rand_nodes)), 8 );
+
+	for( var t=0; t<4; t++ )
+	{
+		osc.detune.setValueAtTime( Math.random()*30-15, t*2+Math.random() );
+	}
+
+	var filter = audioContext.createBiquadFilter();
+	filter.type = "lowpass";
+	filter.frequency.value = 3000 + Math.random()*2000;
+	filter.Q.value = Math.random()*2;
+
+	var amp = audioContext.createGain();
+	amp.gain.setValueAtTime( 0, 0 );
+	amp.gain.linearRampToValueAtTime( 1, 5 + Math.random()*5 );
+	amp.gain.setValueAtTime( 1, 14 );
+	amp.gain.linearRampToValueAtTime( 0, 19 );
+
+	var panner = audioContext.createPanner();
+	panner.setPosition( Math.random()*2-1, Math.random()*2-1, Math.random()*2-1 );
+
+	osc.connect( filter );
+	filter.connect( amp );
+	amp.connect( panner );
+	panner.connect( compressor );
+
+	osc.start(0);
+	osc.stop(20);
+}
+
+
+
+})
+function callPartialsStart(){
+ x =  1 + Math.floor(Math.random() * 12);   
+  return x;
+}
+
+function callPartialsEnd(){
+  y = (3 + Math.floor(Math.random() * 5)) + Math.floor(Math.random() * 17);   
+  return y;
+}
+       
+   </script>
+
+    
+</body>
+</html>

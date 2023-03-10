@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sebastian Adams: Works</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/works.css">
+    <!-- Add icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <script src="js/collapse-text.js">
+    </script>
+
+
+</head>
+<body>
+   <div class="sidebar">
+      <h3 id="sitename" class="sitename">Sebastian Adams</h3><small>Composer/Musician/Artistic Director/Programmer</small><h2 id="menu" class="menu">Menu</h2>
+    </div>
+  <script src="js/sidebar.js"></script>
+<div class="content">
+        <h2>Complete Worklist</h2>
+        <p style="white-space: pre-wrap;">Scores can be downloaded free of charge on provision of an email address! I’ll gradually add more detailed materials when I can 
+
+(I’d love to include Max patches etc. too but it takes a lot of time to prepare them)
+    
+Get in touch directly for performance parts (I can normally provide these free of charge too), or if you can’t find something.  
+    
+You can search or filter using the controls to the right. Let me know if you find any bugs!</p>
+
+<div id="searchcontent">
+    <input type="text" id="link-box" class="search" placeholder="title/year/instrument">
+    <!-- <input type="text" id="link-box" class="search" placeholder="title/year/instrument" onkeydown="if (event.keyCode == 13)
+    goTo()"> -->
+   <input type="button" id="searchButton" value="Search" class="go">
+   <input type="button" id="randomButton" value="Random Piece!" class="go">
+  
+  <div id="blankdiv">
+  <br>
+  </div>
+   
+  <select id="category" class="dropdown" color="red">
+      <option value="all" selected="">Categories:All</option>
+      <option value="large">Orchestra/Large</option>
+      <option value="chamber">Chamber Music</option>
+      <option value="solo">Solo Works</option>
+      <option value="elec">Electronic</option>
+      <option value="gen">Generative Notation</option>
+      <option value="inter">Intermedia Works</option>
+      <option value="event">Event Scores/Text Scores</option>
+      <option value="inst">Installations</option>
+      <option value="vocal">Vocal Works</option>
+  </select>
+  </div>
+
+<div id="worklist">
+</div>
+
+</div>
+<!-- Search control -->
+
+
+
+
+</body>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js" crossorigin="anonymous"></script>
+<script src="/js/works.js" type="module"></script>
+
+<button onclick="topFunction()" id="myBtn" title="Go to top">
+    <i class="fas fa-arrow-up"></i>
+</button>
+<script>
+   window.onscroll = function() {scrollFunction()};
+
+   function scrollFunction() {
+      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20)
+      {
+         document.getElementById("myBtn").style.display = "block";
+      } else {
+         document.getElementById("myBtn").style.display = "none";
+      }
+   }
+
+   function topFunction() {
+      $('html,body').animate({ scrollTop: 0 }, 1000);
+   }    
+</script>
+</html>
