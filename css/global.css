@@ -80,7 +80,25 @@ body b {
       padding: 0;
   
 }
-  
+select, input[type="button"] {
+  background-color: white;
+  color: rgb(100, 100, 100);
+  border: 2px solid #a7a7a7; 
+  padding: .5rem;
+}
+
+select:hover, input[type="button"]:hover {
+  color: rgb(170, 170, 170);
+}
+
+input[type="text"]{
+  padding: .5rem;
+  border: 2px solid #a7a7a7;
+  placeholder-color:rgb(183, 183, 183) 
+
+}
+
+
 
     /* sidebar */
 
@@ -324,4 +342,8 @@ footer{
 }
 .socials a:hover i{
     color: aqua;
+}
+
+.indented {
+  margin-left: 2rem;
 }

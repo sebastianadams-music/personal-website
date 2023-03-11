@@ -9,158 +9,103 @@
     <link rel="stylesheet" href="css/prog.css">
     <!-- Add icon library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+    </style>
 </head>
 <body>
     <div class="sidebar">
         <h3 id="sitename" class="sitename">Sebastian Adams</h3><small>Composer/Musician/Artistic Director/Programmer</small><h2 id="menu" class="menu">Menu</h2>
       </div>
     <script src="js/sidebar.js"></script>
-    <div class="sqs-block-content, content">
-        <p class="" style="white-space:pre-wrap;">Much of my artistic output over the past few years has involved a significant amount of computer programming. I have 10 years of experience using the Max MSP visual programming language, with specialisms in the <a href="https://bachproject.net">Bach</a>real-time composition/notation library (including an understanding of lisp-like linked lists) and the Jitter real-time video software included as part of Max.
-        </p>
-        <p class="" style="white-space:pre-wrap;">My skills with Max were recently developed by undertaking the intensive Cursus for composers at IRCAM. I can also write JavaScript and Python. I am largely self-taught with these languages, although i did a remote Stanford Code In Place course in 2021. </p>
-        <p class="" style="white-space:pre-wrap;">The works page of this website was written by me, creating a backend using Google Firestore and a front-end which uses JavaScript to create complex filtering, populating the page from my database and allowing simple text searching etc. </p>
-        <p class="" style="white-space:pre-wrap;">Most of my code is written for myself, so it is often a proof-of-concept rather than production-ready software. But I do contract work from time to time. </p>
-        <h3 style="white-space:pre-wrap;">Some examples of my code:</h3>
-        <p class="" style="white-space:pre-wrap;">
-            <a href="https://stolenmusic.org/ircam">https://stolenmusic.org/ircam</a>
-            - my IRCAM project presented through a complex interactive web page
-        </p>
-        <p class="" style="white-space:pre-wrap;">
-            <a href="https://sebastianadams-music.github.io/ghost-box/">ghost-box</a>
-            - emulates an auto-scanning FM radio using web radio stations: use this to find ghosts
-        </p>
-        <p class="" style="white-space:pre-wrap;">
-            <a href="https://sebastianadams-music.github.io/webradio-shuffler/">Web Radio Shuffler</a>
-            - shuffles and crossfades a huge database of web radio stations to create a Cageian browser performance
-        </p>
-        <p class="" style="white-space:pre-wrap;">
-            <a href="https://sebastianadams-music.github.io/radio-time-travel/">Radio Time Travel</a>
-            - simply finds random web radio stations and does a beautiful HTMLMediaElement time stretch on it 
-        </p>
-        <p class="" style="white-space:pre-wrap;">
-            <a href="https://sebastianadams-music.github.io/youtube-cues/">YouTube Cue Player</a>
-            - crossfades YouTube videos from a list inputted by the user (could be used as a graphic score)
-        </p>
-        <p class="" style="white-space:pre-wrap;">
-            <a href="https://sebastianadams.net/works">https://sebastianadams.net/works</a>
-            - searchable/filtered database-driven catalogue of my works
-        </p>
-        <p class="" style="white-space:pre-wrap;">
-            <a href="https://github.com/sebastianadams-music/">https://github.com/sebastianadams-music/</a>
-            - my GitHub page (most of my Max projects are still private though)
-        </p>
-        <p class="" style="white-space:;  text-indent:3rem ;">
-        <a href="https://stolenmusic.org/thoughtmusic/chatmusicweb-proofofconcept.html">https://stolenmusic.org/thoughtmusic/chatmusicweb-proofofconcept.html</a>
-        <div style="text-indent: 3rem;">- a basic proof-of-concept of a browser-based version of <a style="text-indent: 3rem;" href="https://www.sebastianadams.net/works/#chat-music"><em  style="text-indent: 3rem;">ChatMusic</em></a> <span style="text-indent: 3rem;">(using a persistent live web chat stored and retrieved from a Firestore cloud database). This is most fun if you can co-ordinate with a couple of friends to be online at the same time! Be aware that there is currently NO moderation</span></div></p>
-<p class="" style="white-space:pre-wrap;">
-            <a href="https://stolenmusic.org/thoughtmusic">https://stolenmusic.org/thoughtmusic</a>
-            - interactive website converting text input from the user into music notation and sound
-        </p>
-        <p class="" style="white-space:pre-wrap;">
-            <a href="http://stolenmusic.org/slotmachine">https://stolenmusic.org/slotmachine</a>
-            - super fast and efficient display of music notation in the browser (conversion from a text file)
-        </p>
-        <p class="" style="white-space:pre-wrap;">
-            <a href="https://stolenmusic.org/freesounds">https://stolenmusic.org/freesounds</a>
-            - an instrument using the freesounds.org API 
-        </p>
-        <p class="" style="white-space:pre-wrap;">
-            <a href="https://www.sebastianadams.net/generative-chorale">Basic WebAudio Experiments</a>
-            - basic web audio experiments (including a cool implementation of the THX deep note)
-        </p>
-        <h3 style="white-space:pre-wrap;">Tech-heavy pieces (available on my works list):</h3>
-        <p class="" style="white-space:pre-wrap;">
-            <a href="https://stolenmusic.org/ircam"><em>Stolen Music</em></a>
-            (2022) a set of pieces + website investigating the impact of copyright law / attitudes to ownership on creativity and artistic freedom. Incorporating Max MSP, advanced Jitter video processing, MUBU (file segmentation; corpus-based concatenative synthesis), Python and moviepy, Orchidea (command line version automated through Python), Da Vinci Resolve and Fusion, fixed media audio, interactive web pages built in JavaScript, WebAudio, Freesounds API, OpenGL etc.
-        </p>
-        <p class="" style="white-space:pre-wrap;">
-            <strong>
-                <em>Circum</em>
-            </strong>
-            (2022) a set of animated video scores generated using Bach/Max MSP and a particle system made in Jitter to morph between text and video. Then assembled in DaVinci Resolve.<br>
-            <em>
-                <br>
-            </em>
-            <a href="https://www.sebastianadams.net/works/#500-minutes">
-                <em>500 minutes of microtonal piano music</em>
-            </a>
-            (2022) [YouTube release of 500 short procedurally-generated piano pieces]. Created using Bach library, Max, batch processing with Lilypond/musicxml in the command line
-        </p>
-        <p class="" style="white-space:pre-wrap;">
-            <a href="https://www.sebastianadams.net/works/#chat-music">
-                <em>ChatMusic</em>
-            </a>
-            [concept/programming; collaboration with Carl Ludwig Hübsch; conversion of online Twitch chat to music notation in real time] (2020-22). Created using Bach, Max MSP, Jitter, node/JavaScript/python, Twitch API 
-        </p>
-        <h3 style="white-space:pre-wrap;">My skillset:</h3>
-        <p class="" style="white-space:pre-wrap;">
-            <strong>Programming languages:</strong>
-        </p>
-        <p class="" style="white-space:pre-wrap;">
-            MaxMSP, Bach real-time music notation library, Jitter (expert), <br>
-            JavaScript, MUBU, Orchidea, (strong knowledge),<br>Python, Firebase (as back-end for websites), MoviePy, FFMPEG, WebAudio, ABCJS, NodeJS, OpenMusic, Modalys, OpenGL, Google Scripts (working knowledge)
-        </p>
-        <p class="" style="white-space:pre-wrap;">
-            <strong>Production software:</strong>
-        </p>
-        <p class="" style="white-space:pre-wrap;">Reaper, Cubase, Audacity, Dorico, Sibelius (including professional typesetting work), DaVinci Resolve / Fusion, Premiere Pro, Excel, Google Sheets, Word, etc. (expert or strong knowledge)</p>
-        <p class="" style="white-space:pre-wrap;">OBS, networking software &amp;protocols, TS2, AudioSculpt, Arduino, Raspberry Pi, After Effects, iZotope RX (working or basic knowledge)</p>
-        <p class="" style="white-space:pre-wrap;">
-            Excellent knowledge of relevant web, audio, video protocols, etc; working knowledge of signal theory and basic computer science principles. Can adapt very quickly to new software; comfortable using my own initiative to figure problems which are new to me. Comfortable working with a command line interface. Fluent in MacOs and Windows. Basic knowledge of Linux. Learned to code by designing <a href="https://www.sebastianadams.net/works">own website</a>
-            with complex filtering of a database in vanilla JS + Firebase backend to create a well laid-out and adaptable index of works populated from the database. 
-        </p>
-        <h2 style="white-space:pre-wrap;">
-            <strong>Live production experience:</strong>
-        </h2>
-        <p class="" style="white-space:pre-wrap;">Founder, artistic director, production manager, responsibility for building and managing tech solutions for interdisciplinary experimental events, and for project managing major events from the funding stage to completion with hands-on experience of almost all technical roles. The ensemble has given over 100 concerts. (2012–)</p>
-        <p class="" style="white-space:pre-wrap;">
-            Founded venue <a href="https://www.kirkosensemble.com/unit-44">Unit 44</a>
-            in Dublin and defined and installed its technical specifications (stereo + 8.1 sound, Yamaha digital mixer, ultra-short-throw projector, multi-cam recording/streaming rig with ATEM Mini Pro ISO, basic DMX lighting with custom Max patch etc.), also responsible for curation and strategic oversight of the venue.
-        </p>
-        <p class="" style="white-space:pre-wrap;">
-            <a href="https://www.kirkosensemble.com/for-private-use">
-                <em>For Private Use</em>
-            </a>
-            (2021) [online collection of new text and multimedia pieces designed for performance by members of the public who are not musically trained]
-        </p>
-        <p class="" style="white-space:pre-wrap;">
-            <a href="https://www.kirkosensemble.com/biosphere">
-                <em>Biosphere</em>
-            </a>
-            (2020) [series of guerrilla popup site-specific performances around the Dublin Bay Biosphere, engaging with climate change; contributed the piece <em>Tide Quartet</em>
-            (where a string quartet performed in the ocean until the tide reached their necks), and curated and managed the project]
-        </p>
-        <p class="" style="white-space:pre-wrap;">
+<div class="content">
+
+<p class="" style="white-space:pre-wrap;">Much of my artistic output over the past few years has involved a significant amount of computer programming. I have 10 years of experience using the Max MSP visual programming language, with specialisms in the <a target="_blank" href="https://bachproject.net">Bach</a>real-time composition/notation library (including an understanding of lisp-like linked lists) and the Jitter real-time video software included as part of Max.
+</p>
+<p class="" style="white-space:pre-wrap;">My skills with Max were recently developed by undertaking the intensive Cursus for composers at IRCAM. I can also write JavaScript and Python. I am largely self-taught with these languages, although i did a remote Stanford Code In Place course in 2021. </p>
+<p class="" style="white-space:pre-wrap;">The works page of this website was written by me, creating a backend using Google Firestore and a front-end which uses JavaScript to create complex filtering, populating the page from my database and allowing simple text searching etc. </p>
+<p class="" style="white-space:pre-wrap;">Most of my code is written for myself, so it is often a proof-of-concept rather than production-ready software. But I do contract work from time to time. </p>
+<h3>Some examples of my code:</h3>
+<div class="indented">
+    <p>    <a target="_blank" href="https://stolenmusic.org/ircam">https://stolenmusic.org/ircam</a>
+        - my IRCAM project presented through a complex interactive web page</p>
+    <p>    <a target="_blank" href="https://sebastianadams-music.github.io/ghost-box/">ghost-box</a>
+        - emulates an auto-scanning FM radio using web radio stations: use this to find ghosts</p>
+    <p>    <a target="_blank" href="https://sebastianadams-music.github.io/webradio-shuffler/">Web Radio Shuffler</a>
+        - shuffles and crossfades a huge database of web radio stations to create a Cageian browser performance</p>
+    <p>    <a target="_blank" href="https://sebastianadams-music.github.io/radio-time-travel/">Radio Time Travel</a>
+        - simply finds random web radio stations and does a beautiful HTMLMediaElement time stretch on it</p>
+    <p>    <a target="_blank" href="https://sebastianadams-music.github.io/youtube-cues/">YouTube Cue Player</a>
+        - crossfades YouTube videos from a list inputted by the user (could be used as a graphic score)</p>
+    <p>    <a target="_blank" href="https://sebastianadams.net/works">https://sebastianadams.net/works</a>
+        - searchable/filtered database-driven catalogue of my works. In fact, I designed the whole website myself</p> 
+    <p>    <a target="_blank" href="https://github.com/sebastianadams-music/">https://github.com/sebastianadams-music/</a>
+        - my GitHub page (most of my Max projects are still private though)</p>
+    <p>    <a target="_blank" href="https://stolenmusic.org/thoughtmusic/chatmusicweb-proofofconcept.html">https://stolenmusic.org/thoughtmusic/chatmusicweb-proofofconcept.html</a>
+        - a basic proof-of-concept of a browser-based version of <a target="_blank" href="/works#chat-music"><em>ChatMusic</em></a> (using a persistent live web chat stored and retrieved from a Firestore cloud database). This is most fun if you can co-ordinate with a couple of friends to be online at the same time! Be aware that there is currently NO moderation</p>
+    <p>    <a target="_blank" href="https://stolenmusic.org/thoughtmusic">https://stolenmusic.org/thoughtmusic</a>
+        - interactive website converting text input from the user into music notation and sound</p>
+    <p>    <a target="_blank" href="http://stolenmusic.org/slotmachine">https://stolenmusic.org/slotmachine</a>
+        - super fast and efficient display of music notation in the browser (conversion from a text file)</p>
+    <p>    <a target="_blank" href="https://stolenmusic.org/freesounds">https://stolenmusic.org/freesounds</a>
+        - an interactive instrument using the freesounds.org API </p>
+    <p>    <a target="_blank" href="https://www.sebastianadams.net/generative-chorale">Basic WebAudio Experiments</a>
+        - basic web audio experiments (including a cool implementation of the THX deep note)</p></div>
+    
+    <h3>Tech-heavy pieces (available on my works list):</h3>
+    <div class="indented">
+    <a target="_blank" href="https://stolenmusic.org"><em>Stolen Music</em></a>
+    <p>(2022) a set of pieces + website investigating the impact of copyright law / attitudes to ownership on creativity and artistic freedom. Incorporating Max MSP, advanced Jitter video processing, MUBU (file segmentation; corpus-based concatenative synthesis), Python and moviepy, Orchidea (command line version automated through Python), Da Vinci Resolve and Fusion, fixed media audio, interactive web pages built in JavaScript, WebAudio, Freesounds API, OpenGL etc.</p>
+    <a target="_blank" href="/circum.html"><em>Circum</em></a>
+    <p>(2022) a set of animated video scores generated using Bach/Max MSP and a particle system made in Jitter to morph between text and video. Then assembled in DaVinci Resolve.</p>
+    </em>
+    <a target="_blank" href="/works#500-minutes"><em>500 minutes of microtonal piano music</em></a>
+    <p>(2022) [YouTube release of 500 short procedurally-generated piano pieces]. Created using Bach library, Max, batch processing with Lilypond/musicxml in the command line</p>
+    <a target="_blank" href="/works#chat-music"><em>ChatMusic</em></a>
+    <p>[concept/programming; collaboration with Carl Ludwig Hübsch; conversion of online Twitch chat to music notation in real time] (2020-22). Created using Bach, Max MSP, Jitter, node/JavaScript/python, Twitch API</p></div>
+    <h3>My skillset:</h3>
+    <div class="indented">
+        <h3>Programming languages:</h3>
+        <p>MaxMSP, Bach real-time music notation library, Jitter (expert), <br>
+            JavaScript, MUBU, Orchidea, (strong knowledge),<br>Python, Firebase (as back-end for websites), MoviePy, FFMPEG, WebAudio, ABCJS, NodeJS, OpenMusic, Modalys, OpenGL, Google Scripts (working knowledge)</p>
+            <h3>Production Software:</h3>
+            <p>Reaper, Cubase, Audacity, Dorico, Sibelius (including professional typesetting work), DaVinci Resolve / Fusion, Premiere Pro, Excel, Google Sheets, Word, etc. (expert or strong knowledge).</p>
+            <p>OBS, networking software & protocols, TS2, AudioSculpt, Arduino, Raspberry Pi, After Effects, iZotope RX (working or basic knowledge)</p>
+            <p>Can adapt very quickly to new software; comfortable using my own initiative to figure problems which are new to me. Comfortable working with a command line interface. Fluent in MacOs and Windows. Basic knowledge of Linux. Learned to code by designing <a target="_blank" href="/works">own website</a>
+                with complex filtering of a database in vanilla JS + Firebase backend to create a well laid-out and adaptable index of works populated from the database. </p>
+            <h3>Live production experience:</h3>
+            <p>Founder, artistic director, production manager, responsibility for building and managing tech solutions for interdisciplinary experimental events, and for project managing major events from the funding stage to completion with hands-on experience of almost all technical roles. The ensemble has given over 100 concerts. (2012–)</p>
+            <p>Founded DIY venue <a target="_blank" href="https://www.kirkosensemble.com/unit-44">Unit 44</a>
+            in Dublin and defined and installed its technical specifications (stereo + 8.1 sound, Yamaha digital mixer, ultra-short-throw projector, multi-cam recording/streaming rig with ATEM Mini Pro ISO, basic DMX lighting with custom Max patch etc.), also responsible for curation and strategic oversight of the venue.</p>
+            <em>For Private Use</em>
+            <p>(2021) online collection of new text and multimedia pieces designed for performance by members of the public who are not musically trained</p>
+            <em>Biosphere</em>
+            <p>(2020) series of guerrilla popup site-specific performances around the Dublin Bay Biosphere, engaging with climate change; contributed the piece <a target="_blank" href="https://kirkosensemble.com/biosphere-tide-quartet">Tide Quartet</a> (where a string quartet performed in the ocean until the tide reached their necks), and curated and managed the project
+            </p>
             <em>The Buffer Zone </em>
-            – Yannis Kyriakides (2019) [artistic director, sound engineer, project manager for brand new production of this chamber opera]<br>
-            <br>
-            <a href="https://journalofmusic.com/criticism/dance-moves-banquet-hall">
-                <em>Listening Bodies</em>
-            </a>
-            (2019), 
-            <a href="https://www.foundthisweek.com/items/kirkos-speaking-music">
-                <em>Speaking of Music</em>
-            </a>
-            (2019), 
-            <a href="https://www.foundthisweek.com/items/kirkos-body-noise-work">
+            <p>(2019) artistic director, sound engineer, project manager for brand new production of this chamber opera by Yannis Kyriakides</p>
+            <p><a target="_blank" href="https://journalofmusic.com/criticism/dance-moves-banquet-hall"><em>Listening Bodies</em></a>
+                (2019),</p>
+            <p><a target="_blank" href="https://www.foundthisweek.com/items/kirkos-speaking-music"><em>Speaking of Music</em></a>(2019),</p>
+            <p><a target="_blank" href="https://www.foundthisweek.com/items/kirkos-body-noise-work">
                 <em>Body Noise Work</em>
             </a>
-            (2018), 
-            <a href="https://www.flickr.com/photos/dfeehely/with/30372486956/">
+            (2018),</p>
+
+            <a target="_blank" href="https://www.flickr.com/photos/dfeehely/with/30372486956/">
                 <em>Fluxfest</em>
-            </a>
+            </a><p>
             (2016). Project manager and production management for large-scale experimental inter-disciplinary happenings, requiring unique solutions to complex production and tech scenarios 
         </p>
-        <p class="" style="white-space:pre-wrap;">
-            <a href="https://www.irishtimes.com/culture/music/kirkos-invite-their-audience-into-the-twilight-zone-1.2209229">
+            <a target="_blank" href="https://www.irishtimes.com/culture/music/kirkos-invite-their-audience-into-the-twilight-zone-1.2209229">
                 <em>Blackout</em>
             </a>
-            <em></em>
+            <p>
             (2015) series of theatrical concerts in darkness, responsibility for artistic direction, joint responsibility for production management, public safety, prop design and building
         </p>
-        <p class="" data-rte-preserve-empty="true" style="white-space:pre-wrap;"></p>
-        <p class="" data-rte-preserve-empty="true" style="white-space:pre-wrap;"></p>
+    </div>
+    
+
+
     </div>
 </body>
 </html>

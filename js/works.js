@@ -261,7 +261,7 @@ function URLEndToSearch(){
                         if ((work_url != "works") && (work_url != "works.html") && (work_url != "works-testing"))
                         {
                           console.log("url doesn't match, it is: ", work_url)
-                          work_url = work_url.replace(/-/g, ' ').replace(/#/g, '').replace(/_/g, ' ');
+                          work_url = work_url.replace("works","").replace(".html","").replace(/-/g, ' ').replace(/#/g, '').replace(/_/g, ' ');
                           document.getElementById('link-box').value = work_url;
                           ranBefore = 1
                           
@@ -306,6 +306,8 @@ function createReSet(){
   node.setAttribute("value", " Reset ");
   //node.setAttribute("padding", "20px");
   node.setAttribute("class", "go");
+  node.style.marginTop = ".5rem"
+  node.style.padding = ".5rem"
   var reSetButton = document.getElementById("reset-button");
   reSetButton.addEventListener('click', function() { reSet() }, false);
 }
@@ -508,6 +510,9 @@ function retrieveScore(el, calledScore, s){
       console.log(alink)
       calledScore.after(alink)
       const colRef = collection(db, 'score_downloads')
+      const date = new Date();
+
+
       addDoc(colRef, {
         to: "sebastianadamsforward+firestore@gmail.com",
         message: {
@@ -519,6 +524,8 @@ function retrieveScore(el, calledScore, s){
         person: email,
         work: requestedWork,
         reason: reason,
+        JStimestamp: date,
+        date: "Date: "+ date.getHours() + ":" + date.getMinutes() + ", "+ date.toDateString(),
       })
     }
     

@@ -4,23 +4,24 @@
 - improve fonts, spacing etc. MOSTLY DONE
 - populate side menu from script so that it's easy to keep consistent [DONE]
 ## to do on works page
-- add timestamp to the Firebase exports
-- remove / repair any jQuery scripts 
-- hunt down errors
+- fix hash links [done]
+- add timestamp to the Firebase exports [done]
+- remove / repair any jQuery scripts [put off for now]
+- hunt down errors in score links etc. [put off for now]
 - list all broken links and then port webpages for them [DONE]
 ## to do on index page
 - make the YouTube init function work with extra players (smart way, not dumb way)
 
 ## to do on programming page
-- all formatting redone from scratch
+- all formatting redone from scratch [done]
 
 ## in focus
-- rethink page completely!
+- rethink page completely! [put off for now]
 
 ## about
-- add up-to-date bio
+- add up-to-date bio [done]
 ## viola
-- add links
+- add links [put off for now]
 
 ## eventually: performance page
 
