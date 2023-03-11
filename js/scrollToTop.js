@@ -15,8 +15,9 @@ button.style.padding = 0
 button.style.border = "none"
 button.style.background = "none"
 button.style.fontSize = "1.5rem"
-button.addEventListener("mouseover", () => {button.style.opacity = 0.5}, false);
-button.addEventListener("mouseout", () => {button.style.opacity = 1}, false);
+button.style.opacity = 0.5
+button.addEventListener("mouseover", () => {button.style.opacity = 1}, false);
+button.addEventListener("mouseout", () => {button.style.opacity = 0.5}, false);
 
 
 let scroll = 0
