@@ -17,6 +17,8 @@
 ## in focus
 - rethink page completely!
 
+## about
+- add up-to-date bio
 ## viola
 - add links
 

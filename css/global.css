@@ -183,6 +183,13 @@ body b {
     
 }
 
+img {
+  max-width: 60vw;
+  /* object-fit: contain; */
+
+  /* height: auto; */
+}
+
 .iframe-container {
   position: relative;
   overflow: hidden;
@@ -212,6 +219,9 @@ iframe {
     }
     .sidebar a {float: left;}
     div.content {margin-left: 0;}
+    img {
+      max-width: 80vw;
+    }
   }
   
   @media screen and (max-width: 400px) {
@@ -233,6 +243,10 @@ iframe {
       display: none;
 
     }
+
+    img {
+      max-width: 90vw;
+    }
   }
 
 /* end sidebar */
@@ -244,11 +258,18 @@ footer{
     bottom: 0;
     left: 0;
     right: 0;
-    /* background: #111; */
+    
     height: auto;
     width: 100vw;
     /* padding-top: 40px; */
-    color: #fff;
+    /* color: #f4f4f400; */
+    /* border:#ff0000; */
+    /* background-color: #fff;  fallback color if gradients are not supported */
+    background-image: -webkit-linear-gradient(to top, #fff, #b5090900); /* For Chrome and Safari */
+    background-image:    -moz-linear-gradient(to top, #fff, #b5090900); /* For old Fx (3.6 to 15) */
+    background-image:     -ms-linear-gradient(to top, #fff, #b5090900); /* For pre-releases of IE 10*/
+    background-image:      -o-linear-gradient(to top, #fff, #b5090900); /* For old Opera (11.1 to 12.0) */
+    background-image:         linear-gradient(to top, #fff 0%, #fff 40%, #ffffff00 100% ); /* Standard syntax; must be last */
 }
 
 .footer-content{
@@ -258,7 +279,9 @@ footer{
     justify-content: center;
     flex-direction: column;
     text-align: center;
-}
+    
+    /* border-width: 0; */
+  }
 
 /* .footer-content h3{
     font-size: 2.1rem;
@@ -280,7 +303,9 @@ footer{
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 1rem 0 3rem 0;
+    margin: .5rem 0 .5rem 0;
+    
+    
 }
 .socials li{
     margin: 0 10px;
