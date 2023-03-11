@@ -9,7 +9,7 @@ let playerCount = 0
 let numPlayers = 12
 
 
-const loopLength = 12000
+const loopLength = 10000
 
  const fadeOut = [
   { opacity: .7  },
@@ -20,6 +20,12 @@ const loopLength = 12000
     { opacity: 0.  },
     { opacity: .7 },
     ]
+
+const fadeInAndOut = [
+      { opacity: 0.  },
+      { opacity: .7 },
+      { opacity: .0 },
+      ]
   
 
 const fadeTiming = {
@@ -29,7 +35,14 @@ const fadeTiming = {
 
 }
 
-let idArray = ["lGcr5crBXEk", "P4s0oOpvzeM", "JHTQGRaZyTM", "8wjAVrohd6E", "HQP_UGR0UnE", "hincEDrOO7o", "xn5lkF3GCoU", "2W4DvMyVh_8", "ei3Bh1LnF9c", "aBoCL_qfKTk", "TJIZUS4U9Cs", "ePeX3ezFXtc", "U8loUIDYwIY", "i5lXI3cYucg", "T6baQG0ait8", ]
+const fadeInOutTiming = {
+  duration: 3000,
+  iterations: 1,
+  fill: "forwards"
+
+}
+
+let idArray = ["lGcr5crBXEk", "P4s0oOpvzeM", "JHTQGRaZyTM", "8wjAVrohd6E", "HQP_UGR0UnE", "hincEDrOO7o", "xn5lkF3GCoU", "2W4DvMyVh_8", "ei3Bh1LnF9c", "aBoCL_qfKTk", "TJIZUS4U9Cs", "ePeX3ezFXtc", "U8loUIDYwIY", "i5lXI3cYucg", "T6baQG0ait8", "hxG9LwYVn6M", "ykskH18jzBo"]
 
 let counter = 0
 
@@ -175,53 +188,72 @@ function playNextVideo() {
 
  }
 
+ function fadeInAndOutPlayer(player) {
+  document.getElementById(player).animate(fadeInAndOut, fadeInOutTiming)
+  // console.log("faded out", player)
+
+ }
+
  // 3. This function creates an <iframe> (and YouTube player)
  //    after the API code downloads.
 
  
  function onYouTubeIframeAPIReady() {
   console.log("loading players!")
-  let max = numPlayers - 1
+  
   let newPlayer
-      console.log("loading player ",playerCount)
-      let x = getRandomInt(1, idArray.length) - 1
-      var rand = idArray[x]
-      newPlayer = new YT.Player(`player${playerCount}`, {
-        height: '390',
-        width: '640',
-        loop: 1,
-        autoplay: 1,
-        videoId: idArray[rand],
-        playerVars: {
-          playsinline: '1',
-          mute: '1',
-          autoplay: '1',
-          vq: 'sd480',
-          controls: '0',
-        //  fs: 0,
-         
-         modestbranding: '1',
-           
-        },
+  console.log("loading player ",playerCount)
+  
+  newPlayer = new YT.Player(`player${playerCount}`, {
+    height: '195',
+    width: '320',
+    loop: 1,
+    autoplay: 1,
+    videoId: 'ykskH18jzBo',
+    playerVars: {
+      playsinline: '1',
+      mute: '1',
+      autoplay: '1',
+      vq: 'sd480',
+      controls: '0',
+    //  fs: 0,
+      
+      modestbranding: '1',
         
-        events: {
-          'onReady':         () => { 
-            players.push(newPlayer);
-            let pl = document.getElementById(`player${playerCount}`)
-            let plC = document.getElementById(`player${playerCount}-container`)
-            videoSizeRandomisation(pl)
-            // plC.style.opacity = 0.3
-            if (playerCount === max) {
-              setTimeout(sequencer, 1000)
-              return
-            }
-            playerCount += 1
-            onYouTubeIframeAPIReady()
-            }
-        },
-    })
+    },
+    
+    events: {
+      'onReady':         () => { 
+        onReadyEvent(newPlayer)
+        }
+    },
+})
     
   
+}
+
+function onReadyEvent(newPlayer) {
+    console.log("In on ready event")
+    players.push(newPlayer);
+    let pl = document.getElementById(`player${playerCount}`)
+    let plC = document.getElementById(`player${playerCount}-container`)
+    let x = getRandomInt(1, idArray.length) - 1
+    var rand = idArray[x]
+    newPlayer.loadVideoById(idArray[rand])
+    console.log(playerCount, " should be loaded now", playerCount)
+    videoSizeRandomisation(pl)
+    console.log("fadeout", pl)
+    fadeInAndOutPlayer(`player${playerCount}-container`)
+    // delay to allow video to load before it fades in
+    
+    let max = numPlayers - 1
+    // plC.style.opacity = 0.3
+    if (playerCount === max) {
+      setTimeout(sequencer, 1000)
+      return
+    }
+    playerCount += 1
+    onYouTubeIframeAPIReady()
 }
  
 //  function onYouTubeIframeAPIReady() {

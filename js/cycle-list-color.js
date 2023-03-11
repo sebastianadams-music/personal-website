@@ -20,7 +20,7 @@ async function loopDeLoop() {
 async function loop() {
     for (const match of matches) {
         changeColor(match, "red")
-         console.log("bim")
+        //  console.log("bim")
          await change().then(() => changeColor(match, "blue"))
          
      }
