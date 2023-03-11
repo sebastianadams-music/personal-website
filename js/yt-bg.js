@@ -1,12 +1,20 @@
- // 2. This code loads the IFrame Player API code asynchronously.
+let players = []
+let playerCount = 0
+let numPlayers = 12
+document.terminate = 0
+let terminateCount = 0
+let terminateLimit = getRandomInt(2,5)
+createPlayerDivs()
+// 2. This code loads the IFrame Player API code asynchronously.
  var tag = document.createElement('script');
  tag.src = "https://www.youtube.com/iframe_api";
  var firstScriptTag = document.getElementById('yt-bg-script');
  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-let players = []
-let playerCount = 0
-let numPlayers = 12
+
+document.getElementById("kill-youtube").addEventListener("click", killYouTube, false)
+
+
 
 
 const loopLength = 10000
@@ -48,7 +56,11 @@ let counter = 0
 
 function sequencer(){
   console.log("sequencer ran")
-
+  console.log("sequencer document terminate", document.terminate)
+  if (document.terminate === 1) {
+    console.log("TERMINATING!")
+    return
+  }
   counter > (idArray.length - 1) ? counter = 0 : console.log("")
   playNextVideo()
   counter += 1
@@ -197,14 +209,67 @@ function playNextVideo() {
  // 3. This function creates an <iframe> (and YouTube player)
  //    after the API code downloads.
 
+ function killYouTube() {
+  
+  // document.terminate = 1
+  document.querySelectorAll('.player-container')
+  .forEach(iframe => iframe.remove())
+  playerCount = 0
+  players = []
+  // createPlayerDivs()
+  setTimeout(terminateReset, 1000)
+  
+
+  
+ }
+
+ function terminateReset() {
+  document.terminate = 1
+  createPlayerDivs()
+  
+  
+  if (terminateCount < terminateLimit) {
+    setTimeout(onYouTubeIframeAPIReady, 1000)
+    setTimeout(()=>{document.getElementById("kill-youtube").textContent = "click here a few times if you can't read the text..."}, 500)
+    document.terminate = 0
+
+  }
+  terminateCount += 1
+
+ }
+
+
+
+ function createPlayerDivs() {
+  let cont = document.getElementById("master-video-container")
  
+  for (let i=0;i<=numPlayers;i++){
+    let div = document.createElement("div")
+    div.classList.add("player-container")
+    div.id = `player${i}-container`
+    let subDiv = document.createElement("div")
+    subDiv.classList.add("player")
+    subDiv.id = `player${i}`
+    cont.appendChild(div)
+    div.appendChild(subDiv)
+
+  }
+ }
+
  function onYouTubeIframeAPIReady() {
   console.log("loading players!")
+
+
+  if (document.terminate === 1) {
+   
+    console.log("TERMINATING!")
+    return
+  }
   
-  let newPlayer
+  
   console.log("loading player ",playerCount)
   
-  newPlayer = new YT.Player(`player${playerCount}`, {
+  let newPlayer = new YT.Player(`player${playerCount}`, {
     height: '195',
     width: '320',
     loop: 1,
@@ -223,7 +288,12 @@ function playNextVideo() {
     },
     
     events: {
+      
       'onReady':         () => { 
+        // if (document.terminate === 1) {
+        //   console.log("TERMINATING!")
+        //   return
+        // }
         onReadyEvent(newPlayer)
         }
     },
@@ -233,6 +303,7 @@ function playNextVideo() {
 }
 
 function onReadyEvent(newPlayer) {
+  
     console.log("In on ready event")
     players.push(newPlayer);
     let pl = document.getElementById(`player${playerCount}`)
@@ -253,6 +324,7 @@ function onReadyEvent(newPlayer) {
       return
     }
     playerCount += 1
+    
     onYouTubeIframeAPIReady()
 }
  
