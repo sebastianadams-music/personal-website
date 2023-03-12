@@ -26,8 +26,9 @@ audioContext = new window.AudioContext();
 dataArrays = []
 colors = []
 analysers = []
-let randomFftSize = (Math.pow(2, (5 + randomInteger(8))))
 
+// let randomFftSize = (Math.pow(2, (5 + randomInteger(8))))
+let randomFftSize = 256
 
 
 var compressor = audioContext.createDynamicsCompressor();
@@ -39,7 +40,7 @@ end_rand_nodes = callPartialsEnd();
 
 
 
-let isPlaying;
+// let isPlaying;
 
 // loop
 for( var i=0; i<(30 + Math.floor(Math.random() * 79)); i++ )
