@@ -303,7 +303,9 @@ function playNextVideo() {
 }
 
 function onReadyEvent(newPlayer) {
-  
+
+    newPlayer.target.mute();
+    newPlayer.target.playVideo()
     console.log("In on ready event")
     players.push(newPlayer);
     let pl = document.getElementById(`player${playerCount}`)
