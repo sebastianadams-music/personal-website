@@ -99,69 +99,6 @@ function playNextVideo() {
 }
 
 
-// function playNextVideo_old  () {
-
-//   if ((counter % 2) == 0) {
-//       let x = getRandomInt(1, idArray.length) - 1
-//       const video = idArray[x]
-//       console.log("play next video", video)
-//       console.log(playerTwo)
-//       playerTwo.loadVideoById(video)
-//       setTimeout( () => {
-//         fadeOutPlayer("player3-container")
-//         fadeInPlayer("player2-container")
-//       }, 600) // delay to allow video to load before it fades in
-//       let pl = document.getElementById("player2")
-//       pl.style.zIndex = 0
-//       if (window.innerWidth > 700) {
-//         let top = getRandomInt(-10, 50) + "%"
-//         let left = getRandomInt(20, 50) + "%"
-//         let wide = getRandomInt(15, 80) 
-//         pl.style.top = top
-//         pl.style.left = left
-//         pl.style.width = wide + "vw"
-//         pl.style.height = wide * .66 + "vh"
-//       }
-//       else {
-//         let top = getRandomInt(0, 95) + "%"
-//         let left = getRandomInt(-10, 50) + "%"
-//         pl.style.top = top
-//         pl.style.left = left
-//       }
-//   } 
-//   else {
-//       console.log(counter, "counter")
-//       let x = getRandomInt(1, idArray.length) - 1
-//       const video = idArray[x]
-//       console.log("play next video", video)
-//       playerThree.loadVideoById(video)
-//       setTimeout( () => {
-//         fadeOutPlayer("player2-container")
-//         fadeInPlayer("player3-container")
-//       }, 600) // delay to allow video to load before it fades in
-//       let pl = document.getElementById("player3")
-//       pl.style.zIndex = 0
-//       // big window
-//       if (window.innerWidth > 700) {
-//         let top = getRandomInt(-10, 50) + "%"
-//         let left = getRandomInt(20, 50) + "%"
-//         let wide = getRandomInt(15, 80)
-//         pl.style.top = top
-//         pl.style.left = left
-//         pl.style.width = wide + "vw"
-//         pl.style.height = wide * .66 + "vh"
-//       }
-//       // small window
-//       else {
-//         let top = getRandomInt(0, 95) + "%"
-//         let left = getRandomInt(-10, 50) + "%"
-//         pl.style.top = top
-//         pl.style.left = left
-//       }
-    
-//     }
-
-// }
 
  function videoSizeRandomisation(pl) {
   if (window.innerWidth > 700) {
@@ -330,70 +267,16 @@ function onReadyEvent(newPlayer) {
     onYouTubeIframeAPIReady()
 }
  
-//  function onYouTubeIframeAPIReady() {
+function youTubeSearch(){
+  var arr_search = {
+    "part": 'snippet',
+    "type": 'video',
+    "order": orderby,
+    "maxResults": maxresult,
+    "q": searchString
+};
 
-//   console.log("loading players!")
-
-// playerTwo = new YT.Player('player0', {
-//  height: '390',
-//  width: '640',
-//  loop: 1,
-//  videoId: 'rswxcDyotXA',
-//  playerVars: {
-//    'playsinline': 1,
-//    mute: 1,
-//    'autoplay': 1,
-//    controls: 0,
-//   fs: 0,
-  
-//   modestbranding: 1,
-    
-//  },
- 
-//  events: {
-//    'onReady': () => {
-//     players.push(playerTwo)
-//     // next player created only when first player is ready
-
-//     playerThree = new YT.Player('player1', {
-//       height: '390',
-//       width: '640',
-//       videoId: '8wjAVrohd6E', 
-      
-//    fs: 0,
-//    loop: 1,
-//    modestbranding: 1,
-//       playerVars: {
-//         playsinline: 1,
-//         autoplay: 1,
-//         controls: 0,
-//         mute: 1,
-//         fs: 0,
-//         modestbranding: 1,
-//         "fs": 0,
-//         "loop": 1,
-//         "modestbranding": 1,
- 
-       
- 
-//       },
-//       events: {
-//         'onReady':         () => { players.push(playerThree);
-//         setTimeout(sequencer, 1000)}
-//         // 'onStateChange': onPlayer3StateChange
-//       }
-//     });
-//    }
-//   //  'onStateChange': onPlayerStateChange
-//  }
-// }
-// );
-
-
-
-//     // starts sequence
-
-//  }
+}
 
 
 

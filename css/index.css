@@ -1,4 +1,32 @@
 
+.gallery {
+    z-index: 1;
+    position: absolute;
+}
+
+.gallery a {
+    color: #900;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    color: red;
+    position: relative;
+  }
+  
+  a[data]:hover:before   {
+    content: attr(data);
+    padding: 4px 8px;
+    color: rgb(255, 255, 255);
+    text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+    position: absolute;
+    left: 0;
+    top: -100%;
+    white-space: nowrap;
+    z-index: 2;
+    border-radius: 5px ;
+    background: rgba(0,0,0,0);
+  }
 
 .content p {
     /* font-size: 1.2rem; */

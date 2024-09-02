@@ -208,6 +208,8 @@ img {
   /* height: auto; */
 }
 
+
+
 .iframe-container {
   position: relative;
   overflow: hidden;
@@ -272,6 +274,7 @@ iframe {
 /* footer */
 
 footer{
+    z-index: 4;
     position: fixed;
     bottom: 0;
     left: 0;

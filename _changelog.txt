@@ -1,0 +1,7 @@
+15.08.24
+
+in index.html:
+removed old, commented out code
+
+in yt-bg.js:
+removed old, commented out code 

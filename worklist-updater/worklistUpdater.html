@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="favicon.ico" type="image/x-icon"/>
+  <link rel="stylesheet" href="examples-styles.css"/>
+
+  <title>TURN YOUR THOUGHTS INTO NOTATED MUSIC</title>
+  
+  <script src="worklistToFirebase.js" type="module"></script>
+  
+  
+  <style>
+    table, th, td {
+  border: 1px solid;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+#table tr:nth-child(even){background-color: #f2f2f2;}
+
+
+   </style>
+   
+</head>
+<body >
+  
+  <h1  class="no-print" style="text-align:center; z-index:1;">EDIT WORKS DATABASE</h1>
+  <button id="signin">SIGNIN</button><br>
+  <!--1: add field here-->
+  <label class="no-print" >Work: <input id="work" type="text" placeholder="..."></label><br>
+  <label class="no-print" >Index: <input id="index" type="text" placeholder="..."></label>  <span>Latest index number is: <span id="highestindex"></span></span><br>
+  <label class="no-print" >Cat. No: <input id="catalogueNo" type="text" placeholder="..."></label>  <span>Latest catalogue number is: <span id="highestcat"></span></span><br>
+
+  <label class="no-print" >Categories: <input id="categories" type="text" placeholder="..."></label><br>
+
+  <label><input class="category" type="checkbox" id="all" value="all"> all</label><br>
+  <label><input class="category" type="checkbox" id="large" value="large"> large</label><br>
+  <label><input class="category" type="checkbox" id="chamber" value="chamber"> chamber</label><br>
+  <label><input class="category" type="checkbox" id="solo" value="solo"> solo</label><br>
+  <label><input class="category" type="checkbox" id="elec" value="elec"> elec</label><br>
+  <label><input class="category" type="checkbox" id="gen" value="gen"> gen</label><br>
+  <label><input class="category" type="checkbox" id="inter" value="inter"> inter</label><br>
+  <label><input class="category" type="checkbox" id="event" value="event"> event</label><br>
+  <label><input class="category" type="checkbox" id="inst" value="inst"> inst</label><br>
+  <label><input class="category" type="checkbox" id="vocal" value="vocal"> vocal</label><br>
+  <!-- <label class="no-print" >ID: [PRIVATE/DEPRECATE]<input id="id" type="text" placeholder="..."></label><br> -->
+  <label class="no-print" >Year: <input id="yearOfComposition" type="text" placeholder="..."></label><br>
+  <label class="no-print" >Dates: [PRIVATE]<input id="datesOfComposition" type="text" placeholder="..."></label><br>
+  <label class="no-print" >DatesExact?: [PRIVATE]<input id="datesOfCompositionExact" type="text" placeholder="..."></label><br>
+  <label class="no-print" >Revised: <input id="rev" type="text" value="N/A" placeholder="..."></label><br>
+  <label class="no-print" >Instrumentation: <input id="instrumentation" type="text" placeholder="..."></label><br>
+  <label class="no-print" >Dur: <input id="dur" type="dur" placeholder="..."></label><br>
+  <label class="no-print" >Mvts: [PRIVATE?]<input id="mvts" type="mvts" placeholder="..." value="N/A" ></label><br>
+  <label class="no-print" >scoreAvail: <input id="scoreAvail" type="text" value="0" placeholder="..."></label><br>
+  <label class="no-print" >scoreLink: <input id="scoreLink" type="text" value="N/A" placeholder="..."></label><br>
+  <label class="no-print" >scoreText: <input id="scoreText" type="text" value="N/A" placeholder="..."></label><br>
+  <label class="no-print" >programmeNote: <input id="programmeNote" type="text" value="N/A" placeholder="N/A"></label><br>
+  <label class="no-print" >commissioned: <input id="commissioned" type="text" value="N/A" placeholder="N/A"></label><br>
+  <label class="no-print" >additionalInfo: [NOT USED YET?]<input id="additionalInfo" type="text" placeholder="..."></label><br>
+  <label class="no-print" >moreInfo: <input id="moreInfo" type="text" placeholder="..."></label><br>
+  <label class="no-print" >webPage: <input id="webPage" type="text" placeholder="..."></label><br>
+  <label class="no-print" >embed: Put Embed Code (e.g. full embed data) in here<input id="embed" type="text" placeholder="..."></label><br>
+  <label class="no-print" >recordingLinkWeb:  [PRIVATE]<input id="recordingLinkWeb" type="text" placeholder="..."></label><br>
+  <label class="no-print" >prizes: [PRIVATE]<input id="prizes" type="text" placeholder="..."></label><br>
+  <label class="no-print" >recordingLink:  [PRIVATE]<input id="recordingLink" type="text" placeholder="..."></label><br>
+  <label class="no-print" >equipment: <input id="equipment" type="text" placeholder="..."></label><br>
+  <!-- <label class="no-print" >programmeNoteNewTab [DEPRECATED]: <input id="programmeNoteNewTab" type="text" placeholder="..."></label><br> -->
+  <label class="no-print" >spotifyStatus: <input id="spotifyStatus" type="text" placeholder="..."></label><br>
+  <label class="no-print" >notesOnCompositionDates: <input id="notesOnCompositionDates" type="text" placeholder="..."></label><br>
+  <label class="no-print" >webPage: [NOT USED YET?]<input id="webPage" type="text" placeholder="..."></label><br>
+  <label class="no-print" >dedication:  [PRIVATE]<input id="dedication" type="text" placeholder="..."></label><br>
+  <label class="no-print" >performed: <input id="performed" type="text" placeholder="..."></label><br>
+  <label class="no-print" >withdrawn:  [PRIVATE]<input id="withdrawn" type="text" placeholder="..."></label><br>
+  <label class="no-print" >chamber_players:  [PRIVATE]<input id="chamber_players" type="text" placeholder="..."></label>
+
+
+
+    
+  <div class="no-print"><label>Save my score in Sebastian's database: 
+    <button style="text-align: center;" class="no-print" value="true" id="save-to-firebase" onclick="save2FB()">IMMORTALISE</button> </label></div>
+  <div class="no-print">
+    <label class="no-print">Show a previously composed score: <select name="existingScores" id="existingScores">
+      <option value="none">None</option>
+    </select></label>
+  </div>
+  <p>NOTE: scoreFormLink is deprecated</p>
+  <div id="whole-entry"></div> <!--display whole score--> 
+  <table id="table">
+    <tr>
+      <!--2: add field here--> 
+      <th>Work</th>
+      <th>Index</th>
+      <th>Cat. No</th>
+      <th>Categories</th>
+      <th>ID</th>
+      <th>Year</th>
+      <th>Dates</th>
+      <th>DatesExact?</th>
+      <th>Rev?</th>
+      <th>Instrumentation</th>
+      <th>Dur</th>
+      <th>Mvts</th>
+      <th>scoreAvail</th>
+      <th>scoreLink</th>
+      <th>scoreText</th>
+      <th>programmeNote</th>
+      <th>commissioned</th>
+      <th>additionalInfo</th>
+      <th>moreInfo</th>
+      <th>webPage</th>
+      <th>recordingLinkWeb</th>
+      <th>prizes</th>
+      <th>recordingLink</th>
+      <th>equipment</th>
+      <th>programmeNoteNewTab</th>
+      <th>spotifyStatus</th>
+      <th>embed</th>
+      <th>formSubmissions</th>
+      <th>scoreFormLinkNewTab</th>
+      <th>scoreFormLink</th>
+      <th>scoreFormEditor</th>
+      <th>notesOnCompositionDates</th>
+      <th>webPage</th>
+      <th>dedication</th>
+      <th>performed</th>
+      <th>withdrawn</th>
+      <th>chamber_players</th>
+
+
+
+
+    </tr>
+  </table>
+
+ 
+</body>
+</html>

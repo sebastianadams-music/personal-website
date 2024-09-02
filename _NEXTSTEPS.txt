@@ -1,0 +1,25 @@
+Simplify current code
+    - remove the fancy JS dropdown text, replacing with HTML-based
+
+Add license page (like a manifesto)
+
+Add photos that show up right away
+
+Add different categories for writing, scores, max patches, web pieces, linked pages, instrumental parts, one-off performance projects
+
+Remove viola section
+
+Add a filtered set of top pieces which randomly shows up each time
+
+Load the first few pieces in full? 
+
+Get rid of email / form-based downloading but replace with message suggesting that they contact me.
+
+Add a page for seb.objects with a readme file
+
+Add a field in the db for performances + make a simple page for adding perfgorm,aces 
+
+Pieces to add:
+
+- cheapest most portable speaker array
+

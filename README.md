@@ -1,5 +1,7 @@
 # personal-website
 
+## index:
+- add images (incl. GIFs of videos) for key pieces (as alternative to In Focus page)
 ## to do everywhere:
 - improve fonts, spacing etc. MOSTLY DONE
 - populate side menu from script so that it's easy to keep consistent [DONE]
@@ -9,6 +11,8 @@
 - remove / repair any jQuery scripts [put off for now]
 - hunt down errors in score links etc. [put off for now]
 - list all broken links and then port webpages for them [DONE]
+- separate the closers for score, listen, moreinfo so that all the parts of a particular piece can be open at once.
+- make them automatically open if the page is loaded from an anchor link
 ## to do on index page
 - make the YouTube init function work with extra players (smart way, not dumb way)
 
