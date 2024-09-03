@@ -1,0 +1,208 @@
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js'
+import {
+    getFirestore, collection, getDocs, orderBy, query, where, addDoc, getDoc, doc
+
+ } from 'https://www.gstatic.com/firebasejs/9.17.2/firebase-firestore.js'
+
+const firebaseConfig
+
+// init firebase app
+initialiseApp(firebaseConfig)
+
+// init the necessary firebase servers 
+
+
+addCategoryListener() // create listener for changes of category. categories are defined in the HTML (for now)
+
+
+let ranBefore = 0; // can I change ranbefore so that the hash is deleted once a category is selected or search is made?
+var collectionLength = 0;
+
+
+addSearchListener();
+addSearchBoxListener()
+addRandomListener()
+
+// auto select all categories 
+var selectedCategory = "all"
+
+init(selectedCategory) // everything else runs in this function
+    INIT FUNCTION BEGINS:
+
+    query firestore for works within  selectedCategory, in descending orderBy={} 
+    then
+    get documents from that query 
+
+    for each item: 
+        push data and id of doc to worksArray
+
+    initialise variables:
+    let  x = 0;   // x is the number which increments for embedded media 
+    let scoreform = 0;
+    let  excluded = 0;
+    let included = 0;
+    let dateComposed = 0;      
+    var excludedExists = document.getElementById("noexcluded");
+
+    for works in worksArray:
+        set variables:
+            let work = Object.values(worksArray)[value].work;
+            let index = Object.values(worksArray)[value].id;
+            let index_number = Object.values(worksArray)[value].index;
+            let instrumentation = Object.values(worksArray)[value].instrumentation;
+            let duration = Object.values(worksArray)[value].dur;
+            let commissioned = Object.values(worksArray)[value].commissioned;
+            let categories = Object.values(worksArray)[value].category;
+            let withdrawn = Object.values(worksArray)[value].withdrawn;
+            let revised = Object.values(worksArray)[value].rev;
+            let yearOfComposition = Object.values(worksArray)[value].yearOfComposition;
+            let programmeNote = Object.values(worksArray)[value].programmeNote;
+            let embed = Object.values(worksArray)[value].embed;
+            let scoreAvail = Object.values(worksArray)[value].scoreAvail;
+            let scoreLink = Object.values(worksArray)[value].scoreLink;
+            let scoreText = Object.values(worksArray)[value].scoreText;
+            let webPage = Object.values(worksArray)[value].webPage;
+            let moreInfo = Object.values(worksArray)[value].moreInfo;
+
+            var element = document.getElementById("worklist");  
+
+            skip pieces that are not to be included
+            if (work === undefined) {continue}
+            if (withdrawn === "Yes") {continue;}
+
+            increment included counter
+
+            if (ranbefore = 0) -> if function already ran, doesnt' run the function to check for a hashlink, otherwise it does check by running URLndToSearch()
+
+            get text from search box (converted to lower case)
+            ------- SEARCH SECTION WHICH SHOULD BE ABSTRACTED OUT AS A FUNCTION -------
+            search = search.split(" ") - splits the search into array of words
+            let searchTermsMatched = 0 - initialises a searchTermsMatched variable
+
+            search code seems pretty convoluted......
+
+            for (const item of search){
+                console.log("item1", item, "index", `${index_number}`)
+                
+                if ((`${work}`.toLowerCase().indexOf(item) == -1) && (`${instrumentation}`.toLowerCase().indexOf(item) == -1) && (`${categories}`.toLowerCase().indexOf(item) == -1) && (`${yearOfComposition}`.toLowerCase().indexOf(item) == -1) && (`index${index_number}`.indexOf(item) == -1 )) 
+                { console.log("item2", item.replace("index",""))
+                
+                } else
+                
+            { searchTermsMatched += 1 }
+            }
+            if (searchTermsMatched != search.length) 
+            {excluded = excluded + 1; continue} 
+            else {}
+            ------- END OF SEARCH SECTION ----------
+            
+            tracking the most recently set dateComposed, if they don't match, create HTML for year of composition, so that the year appears big. Possibly rethink this for layout reasons?
+            
+            if data is found for revised, make HTML for year with revision, otherwise make HTML for yearOfComposition
+
+            Make HTML for instrumentation and duration, where relevant NB: will need to add another way to handle this when it's not relevant 
+
+            if data is found for commissioned, make HTML for commissioned
+
+            if embed flag is set:
+                check if embedlink contains Data, and then do complex stuff to embed YouTube etc.
+                includess a checker for whether it is YouTube or not
+                
+                x is incremented
+            
+            if score available flag is set
+                put in score download with form (replace with just a link to the file plus a message saying to feel free to get in touch)
+
+            if score is available in text form:
+                create HTML to add text version of score in-line
+
+            if programme note is available, insert HTML to create programme note (change this to embed programme notes as text or HTML instead of as links)
+
+            if more info contains data, create HTML for moreInfo
+            
+            if webpage contains data, create HTML for moreInfo
+
+            create a ruler <hr> between each work
+        
+        if no results are returned, show HTML for No results found!
+
+        ranBefore = 1 is set so that hashlinks will be ignored from now on 
+
+        collectionLength is set to worksArray.length; this is used by the random function 
+
+        ------- other functions:
+
+        function URLndToSearch()
+        get last part of URL
+        if it's not blank
+            check if url is just the basic url 
+                if it is not, set work_url to the relevant part of the URL
+                set link-box value to the searched work 
+                set ranBefore to 1 so that slug is not run again
+        
+        function goTO (selectedCategory) ----- why is there this + the catSelected one?
+
+            check if reset button excludedExists    
+                if not
+                    create reset button
+                hide categories 
+                reset worklist
+                using JQuery, run init with selectedCategory selected
+            
+        function catSelected - seems similar and also uses JQuery
+
+        createReset : creates the reset button HTML
+
+        reSet:
+            handles reset logic
+            clears worklist div
+            resets link-box
+            uses jQuery to run init
+            
+        LISTENERS:
+
+        addCategoryListener
+            gets category
+            if it ever changes, runs catSelected 
+        
+        similar for searchButton but it runs goTO
+ 
+        addSearchBoxListener
+            separate listener for keypresses in the search box which runs goTo as well 
+
+        addRandomListener()
+            same for random button except runs runRandom
+
+        runRandom:
+
+            chooses a random number within the length of the collection (reduced by 13 not sure why)
+
+            sets the index number into the search box and then runs goTo  
+
+     
+        Many functions relating to the score forms etc are now skipped.
+
+
+
+
+            function clicked() {
+                console.log("clicked") //for debugging purposes only
+              }
+              
+              function toConsole() {
+                console.log("eventran");
+                }
+              
+              
+              function getKeyByValue(object, value) {
+                  return Object.keys(object).filter(key => object[key] === value);
+                }
+              
+              function getKeyByNegativeValue(object, value) {
+                  return Object.keys(object).filter(key => object[key] !== value);
+                }
+
+
+
+
+
