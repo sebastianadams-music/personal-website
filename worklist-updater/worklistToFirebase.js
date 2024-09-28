@@ -1,3 +1,12 @@
+/* 
+When adding new fields to the database, you must make changes in the following places:
+1. at the start of the save2FB function
+sdsd 
+2. in the snapshot section later in save2FB
+3. in the addDoc function further down
+4. In the HTML file index.html (duplicating a form field in the top part of the document)
+*/
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
 import { getFirestore, collection, query, where, doc, setDoc, orderBy, addDoc, onSnapshot, Timestamp} from "https://www.gstatic.com/firebasejs/9.10.0/firebase-firestore.js"
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-analytics.js";
@@ -102,7 +111,9 @@ function populateFromFirebase(title) {
 
 function save2FB() {
 
-// 1) Add field here
+/* / / / / / / / / / /
+1) Add field here
+ */
   var work = document.getElementById("work").value
   var index = Number(document.getElementById("index").value)  
   var instrumentation = document.getElementById("instrumentation").value
@@ -121,6 +132,8 @@ function save2FB() {
   var webPage = document.getElementById("webPage").value
   var additionalInfo = document.getElementById("additionalInfo").value
   var moreInfo = document.getElementById("moreInfo").value
+  var loadScripts = document.getElementById("loadScripts").value
+  var webSnippet = document.getElementById("webSnippet").value
     // NOT USED ON WEBSITE CURRENTLY [I THINK]:
   var catalogueNo = document.getElementById("catalogueNo").value
   var datesOfComposition = document.getElementById("datesOfComposition").value
@@ -131,6 +144,7 @@ function save2FB() {
   var recordingLink = document.getElementById("recordingLink").value
   var equipment = document.getElementById("equipment").value
   var spotifyStatus = document.getElementById("spotifyStatus").value
+  var spotifyID = document.getElementById("spotifyID").value
   var notesOnCompositionDates = document.getElementById("notesOnCompositionDates").value
   var dedication = document.getElementById("dedication").value
   var performed = document.getElementById("performed").value
@@ -155,7 +169,9 @@ if (titleList.includes(work))
       console.log(idOfWork)
       let docRef = doc(db, "works", idOfWork);
       let data = {
-        // 2) Add field here
+/*  / / / / / / / / / / / / / / / /
+        2) Add field here
+         */
         work: work,
         id: index,
         index: index,
@@ -171,6 +187,8 @@ if (titleList.includes(work))
         scoreAvail: scoreAvail,
         scoreLink: scoreLink,
         scoreText: scoreText,
+        loadScripts: loadScripts,
+        webSnippet: webSnippet,
         webPage: webPage,
         additionalInfo: additionalInfo,
         moreInfo: moreInfo,
@@ -183,6 +201,7 @@ if (titleList.includes(work))
         recordingLink: recordingLink,
         equipment: equipment,
         spotifyStatus: spotifyStatus,
+        spotifyID: spotifyID,
         notesOnCompositionDates: notesOnCompositionDates,
         dedication: dedication,
         performed: performed,
@@ -215,7 +234,9 @@ if (titleList.includes(work))
 
 const colRef = collection(db, "works")
   addDoc(colRef, {
-    // 3) Add field here
+/* / / / / / / / / / / 
+    3) Add field here
+ */
     work: work,
     id: index,
     index: index,
@@ -234,6 +255,8 @@ const colRef = collection(db, "works")
     webPage: webPage,
     additionalInfo: additionalInfo,
     moreInfo: moreInfo,
+    loadScripts: loadScripts,
+    webSnippet: webSnippet,
     catalogueNo: catalogueNo,
     datesOfComposition: datesOfComposition,
     datesOfCompositionExact: datesOfCompositionExact,

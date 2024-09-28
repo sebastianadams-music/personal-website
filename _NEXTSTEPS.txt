@@ -3,13 +3,23 @@ Simplify current code
 
 Add license page (like a manifesto)
 
+
+
+media portion priority:
+web-snippet > youtube > spotify > soundcloud > image 
+could also have image set to thumbnail for any other element
+
+
+add youtube as separate DB field (using only YouTube id)
+add media web-snippet as separatew DB field 
+
 Add photos that show up right away
 
 Add different categories for writing, scores, max patches, web pieces, linked pages, instrumental parts, one-off performance projects
 
 Remove viola section
 
-Add a filtered set of top pieces which randomly shows up each time
+Add a filtered set of top pieces which shows up in random order each time
 
 Load the first few pieces in full? 
 
@@ -22,4 +32,9 @@ Add a field in the db for performances + make a simple page for adding perfgorm,
 Pieces to add:
 
 - cheapest most portable speaker array
+- 50 ideas website when done
+- spotify record collection
+- JoM article
+- the various code examples
 
+redo the spotify embed

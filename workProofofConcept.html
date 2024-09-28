@@ -1,0 +1,218 @@
+<!-- if there's a video, that should come up as the image; a different thumbnail could be used for the video where preferred. video watched in iframe -->
+<!-- if no video, then each piece should have an image (or an interactive element) -->
+<!-- 
+format:
+TITLE (year)[duration]
+format - media (media is image, video or interactive stub)
+buttons: more info, listen, read score, 
+downloads: score, programme note, max patch, instrumental parts
+commission info
+
+categories are in a special bit of grid on far side (which could flow to bottom on mobile)
+
+
+read score should open in typewriter font (possibly with some JS to make it fun)
+
+
+click on work info that shows at start to enlarge
+
+old way: 
+@media screen and (max-width: 600px) {
+  CSS Code here will only be executed on a screen with a width below 600px
+}
+
+-->
+<link rel="stylesheet" href="./css/global.css">
+
+<style>
+
+
+h1 {
+margin-block-end: 8px;
+cursor: pointer;
+  
+}
+
+.popped {
+  cursor:default;
+} 
+
+p {
+    margin: 0;
+}
+
+    .works > ul {
+        @media screen and (min-width: 720px) {
+            display: grid;
+grid-template-columns: minmax(360px, 8fr) 5fr 1fr;
+/* grid-template-rows: minmax(100px, 120px); */
+grid-gap: 1rem;
+min-width: 0;
+align-items: stretch;
+    margin: 0;
+    padding: 0;
+
+
+  /* grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));  grid-gap: 1rem; */
+        }
+  
+  /* color: saddlebrown; */
+  list-style-type: none;
+
+}
+
+    .media {
+        min-width: 0;
+        min-height: 0;
+   max-width: 100%;
+   /* max-height: 100%; */
+/* object-fit: cover; */
+align-self: stretch;
+/* display: block; */
+    }
+.works > ul > li {
+    /* outline-style: solid; */
+  /* outline-color: coral; */
+  min-height: 0;
+}
+
+.year {
+    color:blue
+}
+
+.duration {
+    color:rgb(0, 255, 225)
+}
+
+.score {
+ font-family: 'Courier New', Courier, monospace;
+}
+
+.more-info {
+
+    grid-column: 1/span 3;
+}
+
+.commissioned {
+  font-style: italic;
+}
+
+/* details.score[open] summary::after {
+  content: "Hide Score";
+}
+
+details.score:not([open]) summary::after {
+  content: "Show Score";
+} */
+
+/* from old website */
+/* .content2 { */
+
+/* position: absolute; */
+/* /* z-index: 1; */
+/* max-width: 70vw; */
+/* max-height: 100vh;} */ */
+/* } */
+
+</style>
+
+
+<body>
+
+    <div class="sidebar">
+        <h3 id="sitename" class="sitename">Sebastian Adams</h3><small>Composer/Musician/Artistic Director/Programmer</small><h2 id="menu" class="menu">Menu</h2>
+      </div>
+    <script src="js/sidebar.js"></script>
+  
+  <button id="to-top"><i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
+  </button> <!-- button to scroll back to top. run completely by JS file scrollToTop.js -->
+  
+          <div class="content">
+            <h2>Complete Worklist</h2>
+          <p style="white-space: pre-wrap;">All materials are freely available, except where I don't own the necessary permissions. Provided as is, please report bugs or mistakes.</p>
+  <select id="category" class="dropdown" color="red">
+    <option value="all" selected="">Categories:All</option>
+    <option value="large">Orchestra/Large</option>
+    <option value="chamber">Chamber Music</option>
+    <option value="solo">Solo Works</option>
+    <option value="elec">Electronic</option>
+    <option value="gen">Generative Notation</option>
+    <option value="inter">Intermedia Works</option>
+    <option value="event">Event Scores/Text Scores</option>
+    <option value="inst">Installations</option>
+    <option value="vocal">Vocal Works</option>
+</select>
+  <div id="searchcontent">
+      <input type="text" id="link-box" class="search" placeholder="title/year/instrument">
+      <!-- <input type="text" id="link-box" class="search" placeholder="title/year/instrument" onkeydown="if (event.keyCode == 13)
+      goTo()"> -->
+     <input type="button" id="searchButton" value="Search" class="go">
+     <input type="button" id="randomButton" value="Random Piece!" class="go">
+     </div>
+    
+     <section id="worksSection" class="works">
+        <!-- <h1>Thought Music <span class="year">(2022)</span> <span class="duration">[-']</span></h1>
+
+        <ul>
+            <li>
+            <p class="format">interactive web page (for use by anybody): text input converted into music and can be played back and saved to a database</p>     <a href="">[use it here]</a>
+        </li>
+        <li><img class="media" src="/img/teapot.jpeg" alt=""></li>
+
+        <li><span><a href="">[orchestral]</a><a href="">[chamber]</a></span>
+            </li>
+        </ul>
+
+            <h1>Circum (after James Joyce) (2022) [8']</h1>
+    <ul>
+        <li><p>any instruments, performing from a projected animated score (originally: accordion, flute, percussion, soprano)</p>
+            <p class="commission">Commissioned by Between Feathers</p>
+            <p class="weblink">open web page</p></li>
+        </li>
+        <li></li>
+        <li><p>list of categories</p></li>
+    </ul>
+    <h1>Stolen Music v 1 (2022) [10']</h1>
+                <ul>
+                    <li><p>fixed-media multi-channel video, diffused stereo sound, printed text materials, audience members with kazoos, interactive website and live narration
+                    </p></li></li><li></li>
+                </ul>
+    <h1>String Quartet 12 (2027) [10']</h1>
+        <ul><li><p>string quartet
+        </p></li><li></li></ul>
+        <h1>String Quartet 12 (2027) [10']</h1>
+        <ul><li><p>string quartet
+        </p></li><li></li></ul>
+        <h1>String Quartet 12 (2027) [10']</h1>
+        <ul><li><p>string quartet
+        </p></li><li></li></ul> -->
+    <!-- <div id="docs"></div> -->
+    </section>
+
+    </div>
+    
+    <!-- <div id="blankdiv">
+    <br> -->
+    
+  
+    
+    
+<!--   
+  <div id="worklist">
+  </div> -->
+  
+  <!-- </div> -->
+  <!-- Search control -->
+    
+
+    </div>
+
+
+
+
+
+
+<script src="js/works-new.js" type="module"></script>
+</body>
+
+
