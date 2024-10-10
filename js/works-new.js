@@ -1,3 +1,7 @@
+// next step is to add the category selection back in
+// and to fix bug where javascript is re-defined and broken when a page is re-set
+
+
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js'
 import {
     getFirestore, collection, getDocs, orderBy, query, limit, startAfter, where, addDoc, getDoc, doc, 
@@ -14,7 +18,7 @@ import {
     appId: "1:879791884368:web:645ac75a4f19c50afea955",
   };
 
-const queryLimit = 50
+const queryLimit = 250
 var visiblePieces
 
   // init firebase app
@@ -27,10 +31,16 @@ export const db = getFirestore(app);
 
 offlinePersistence(db)
 
-    let selectedCategory = "all"
-    // start after explained here: https://cloud.google.com/firestore/docs/query-data/query-cursors
-    const colRef = query(collection(db, 'works'),limit(queryLimit), where("category", "array-contains", `${selectedCategory}`),orderBy(("index"), "desc"))
+let selectedCategory = "all"
+// start after explained here: https://cloud.google.com/firestore/docs/query-data/query-cursors
+const colRef = query(collection(db, 'works'),
+                    limit(queryLimit), 
+                    where("category", "array-contains", `${selectedCategory}`),
+                    orderBy(("index"), "desc"))
 //get collection data
+
+
+
 console.log(colRef)
 
 firebaseRequest(colRef)
@@ -45,6 +55,10 @@ function firebaseRequest(colRef){
       return worksArray})
 .then((worksArray) => {
     console.log("works: ", worksArray)
+    addSearchListener()
+    addRandomListener()
+    addResetListener()
+    document.worksArray = worksArray
     processRequest(worksArray)    
 })
 }
@@ -63,7 +77,6 @@ function processRequest(worksArray){
       let d = worksArray[item]
       processItem(d, item)
     }
-    document.worksArray = worksArray
 
 }
 
@@ -71,6 +84,9 @@ function processItem(d, itemIndex) // takes an array containing in each position
 {
     if (d.work === undefined) {return}
     if (d.withdrawn === "Yes") {return}
+    var search = document.getElementById('link-box').value.toLowerCase();
+    console.log("search is now", search) 
+    if (!(searchLogic(d, search))) {return}
     visiblePieces += 1
     let titleLine = titleHTML(d.work, d.yearOfComposition, d.dur)
     titleLine.setAttribute("data-list-index", itemIndex)
@@ -129,6 +145,20 @@ function itemDetails(d){
     //prognote
     if (d.programmeNote && (d.programmeNote !== "N/A")){
         linkButton(info, d.programmeNote, "[programme note]")
+    //parts
+    if (d.parts){
+        linkButton(info, `parts/${d.work}.zip`, "[download instrumental parts]")
+    }
+    }
+    // software
+    if (d.softwareLink){
+        linkButton(info, `dl/${d.work}.zip`, "[download software]")
+    }
+    if (d.downloadMedia){
+        linkButton(info, d.downloadMedia, "[download media files]")
+    }
+    if (d.gitHub){
+        linkButton(info, d.gitHub, "[gitHub repo]")
     }
     //commissioned
     if (d.commissioned !== "N/A") {
@@ -138,38 +168,37 @@ function itemDetails(d){
         info.appendChild(comm)
         }     
     ////media
-    if (d.embed){
-               
-        // if (d.embed !== "N/A") 
+    if (d.webSnippet && (d.webSnippet !== "N/A") && (d.webSnippet !== ""))
+        {
+            let s = loadWebSnippet(d.webSnippet)
+            media.appendChild(s)
+            console.log("trying to load scripts")
+            loadScripts(d.loadScripts)
+
+        }
+        else if (d.youTubeID) {
+            let yt = createYouTubeEmbed(d.youTubeID)
             
-        {     
-            console.log("entered embed", `${d.webSnippet}`, d.work)
-            if (d.webSnippet && (d.webSnippet !== "N/A") && (d.webSnippet !== ""))
-            {
-                let s = loadWebSnippet(d.webSnippet)
-                media.appendChild(s)
-                console.log("trying to load scripts")
-                loadScripts(d.loadScripts)
-
+            // let img = document.createElement("img")
+            // img.setAttribute("src", "/img/teapot.jpeg")
+            yt.classList.add("media")
+            media.appendChild(yt)
+        }
+        
+        else if (d.spotifyID) {
+            // console.log("embed,", d.embed)
+            // console.log("d.spo", d.spotifyID)
+            let sp = createSpotifyEmbed(d.spotifyID)
+            // console.log("sp", sp)
+            media.appendChild(sp)
             }
-            else if (d.spotifyStatus !== "Yes" ){
-                let yt = createYouTubeEmbed("P6My5ug-EOg")
-                
-                // let img = document.createElement("img")
-                // img.setAttribute("src", "/img/teapot.jpeg")
-                yt.classList.add("media")
-                media.appendChild(yt)
-    
-            }
-            else {
-                // console.log("embed,", d.embed)
-                // console.log("d.spo", d.spotifyID)
-                let sp = createSpotifyEmbed(d.spotifyID)
-                // console.log("sp", sp)
-                media.appendChild(sp)
-
-                }
-            }
+        else if (d.soundcloudID) {
+            let sc = createSoundcloudEmbed(d.soundcloudID)
+            media.appendChild(sc)
+        }
+        else if (d.image) {
+            let img = createImage(d.image)
+            media.appendChild(img)
         }
     /////categories    
     let cats = ""
@@ -229,16 +258,53 @@ function createSpotifyEmbed(trackID){
     i.setAttribute("width", 320)
     i.setAttribute("height", 240)
     i.setAttribute("title", "Spotify Player")
-    i.setAttribute("frameboder", 0)
+    i.setAttribute("frameborder", 0)
     i.setAttribute("allow", "autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture")
     i.setAttribute("loading", "lazy")
     i.setAttribute("src", `https://open.spotify.com/embed/track/${trackID}?utm_source=generator`)
 
     return i
 }
-
 // 
-{/* <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/4y18Ubv6t2ybX5OGcHq717?utm_source=generator" width="50%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe> */}
+/* <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/4y18Ubv6t2ybX5OGcHq717?utm_source=generator" width="50%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe> */
+
+
+function createSoundcloudEmbed(trackID){
+    let i = document.createElement("iframe")
+    i.setAttribute("width", 320)
+    i.setAttribute("height", 240)
+    i.setAttribute("title", "SoundCloud Player")
+    i.setAttribute("frameborder", 0)
+    i.setAttribute("scrolling", "no")
+    i.setAttribute("allow", "autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture")
+    i.setAttribute("loading", "lazy")
+    if (trackID.match("playlist")){
+        trackID = trackID.replace(/\D/g, '');
+        i.setAttribute("src", `https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/${trackID}&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true`)
+
+    }
+    else{
+        i.setAttribute("src", `https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/${trackID}&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true`)
+    }
+    
+    return i
+}
+/* 
+<iframe width="320" height="240" title="SoundCloud Player" frameborder="0" scrolling="no" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/47134797&amp;color=%23ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&amp;visual=true"></iframe> */
+
+/* 
+<iframe width="100%" height="160" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/471347979&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe> */
+
+function createImage(imageURL){
+    let d = document.createElement("div")
+    let i = document.createElement("img")
+    d.appendChild(i)
+    d.setAttribute("width", 320)
+    d.setAttribute("height", 240)
+    i.setAttribute("src", imageURL)
+    i.classList.add("work-image")
+    return d
+}
 
 function detailsSummary(details, summary){
     let s = document.createElement("summary")
@@ -323,6 +389,7 @@ function loadWebSnippet(snippet){
     return d
 }
 
+// need to add a check for if scripts exist already to get around dynamic reloading.
 const getScript=(url)=>{
     var script = document.createElement('script');
     script.setAttribute('type', 'text/javascript');
@@ -335,3 +402,87 @@ const getScript=(url)=>{
     }
     console.log(`script ${url} has been added to DOM`)
 }
+
+function searchLogic(d, search){
+    let searchTermsMatched = 0
+    search = search.toLowerCase().split(" ")
+    for (const item of search){        
+        if (
+           !( 
+            // if any of these fields match any search term
+            (`${d.work}`.toLowerCase().indexOf(item) == -1) && 
+            (`${d.instrumentation}`.toLowerCase().indexOf(item) == -1) && 
+            (`${d.categories}`.toLowerCase().indexOf(item) == -1) && 
+            (`${d.yearOfComposition}`.toLowerCase().indexOf(item) == -1) && 
+            (`index${d.index}`.indexOf(item) == -1 )))         
+      { searchTermsMatched += 1 }
+      }
+      if (searchTermsMatched == search.length) 
+      { return true}
+}
+
+
+function addSearchListener() {
+  
+            const searchField = document.getElementById ("link-box") 
+            searchField.addEventListener(
+                'input', function() {
+                clearWorks()
+                processRequest(document.worksArray) }, false
+            );
+            
+            
+          }
+
+function addRandomListener() {
+  
+            const randomButton = document.getElementById ("randomButton")
+            // console.log("adding Random listner")
+            randomButton.addEventListener('click', runRandom, false);
+            // console.log(" Random listner added")
+             //searchListener wrapped in jquery to make sure site is READY. Otherwise there are killer problems!
+            
+          }
+
+function addResetListener() {
+    const resetButton = document.getElementById("resetButton")
+    resetButton.addEventListener('click', function() {
+                clearWorks()
+                resetButton.style.visibility = "hidden"
+                processRequest(document.worksArray) }, false)
+
+
+}
+          
+          function runRandom(){
+            const length = document.worksArray.length
+            let randomWorkArray = []
+            let randomWork = 14 + Math.floor(Math.random() * (length - 13));
+            console.log(randomWork)
+            randomWorkArray.push(document.worksArray[randomWork])
+            if (!(randomWorkArray)){
+                console.log("must re-run")
+                runRandom()
+            }
+            else if ((randomWorkArray[0].withdrawn === "Yes")){
+                console.log("must re-run")
+                runRandom()
+            }
+            else {
+                console.log("rWA", randomWorkArray)
+            clearWorks()
+            document.getElementById("resetButton").style.visibility = "visible"
+            processRequest(randomWorkArray) 
+            }
+            
+          
+          }
+
+
+
+
+          function clearWorks(){
+            document.getElementById("worksSection").innerHTML = ""; 
+          }
+
+

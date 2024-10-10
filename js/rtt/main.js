@@ -36,17 +36,18 @@ element.addEventListener("click", function(){
       }, false);
 
 function randomStation() {
+    // console.log("webradio", webradio)
     let stationchoice = frenchStations
 
     const rand = Math.random() < 0.5
     if (rand){
         stationchoice = irishStations
     }
-    console.log(stationchoice)
-    let number = getRandomInt(stationchoice.length)
+    // console.log(stationchoice)
+    let number = getRandomIntRTT(stationchoice.length)
     url = stationchoice[number]
     document.url = url
-    console.log(url)
+    console.log("url", url, "stationchoice", stationchoice, "number", number)
     webradio.play_station(url)
     document.getElementById("currentstation").textContent = "playing from " + url
 }
@@ -63,7 +64,7 @@ function changeSpeed(speed) {
 
 // helper functions
 
-function getRandomInt(max) {
+function getRandomIntRTT(max) {
     return Math.floor(Math.random() * max);
   }
 

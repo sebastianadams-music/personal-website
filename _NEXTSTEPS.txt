@@ -38,3 +38,8 @@ Pieces to add:
 - the various code examples
 
 redo the spotify embed
+
+
+Go through the whole database for YouTube, Spotify and Soundcloud links
+
+Create folder of parts and link them in 

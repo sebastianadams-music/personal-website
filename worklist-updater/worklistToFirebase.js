@@ -49,6 +49,7 @@ const firebaseConfig = {
         const token = credential.accessToken;
         // The signed-in user info.
         const user = result.user;
+        document.getElementById("signin").textContent = `signed in as ${user}`
         // ...
       }).catch((error) => {
         // Handle Errors here.
@@ -87,7 +88,7 @@ const unsubscribe = onSnapshot(q, (querySnapshot) => {
   while (x.options.length) x.remove(0);
   
   querySnapshot.forEach((docu) => {
-    populateFromFirebase(docu.data().work)
+    populateFromFirebase(docu.data().work, docu.data().index)
     titleList.push(docu.data().work)
     let cataloguetest = docu.data().catalogueNo
     document.getElementById("highestcat").textContent = maxCatNumber(cataloguetest)
@@ -99,10 +100,10 @@ const unsubscribe = onSnapshot(q, (querySnapshot) => {
 
 }
 
-function populateFromFirebase(title) {
+function populateFromFirebase(title, index) {
   var x = document.getElementById("existingScores");
     var option = document.createElement("option");
-    option.text = title;
+    option.text = title + " " + index;
     option.value = title;
     x.appendChild(option);
 }
@@ -128,12 +129,17 @@ function save2FB() {
   var embed = document.getElementById("embed").value
   var scoreAvail = document.getElementById("scoreAvail").value
   var scoreLink = document.getElementById("scoreLink").value
+  var parts = document.getElementById("parts").value
+  var gitHub = document.getElementById("gitHub").value
+  var softwareLink = document.getElementById("softwareLink").value
+  var downloadMedia = document.getElementById("downloadMedia").value
   var scoreText = document.getElementById("scoreText").value
   var webPage = document.getElementById("webPage").value
   var additionalInfo = document.getElementById("additionalInfo").value
   var moreInfo = document.getElementById("moreInfo").value
   var loadScripts = document.getElementById("loadScripts").value
   var webSnippet = document.getElementById("webSnippet").value
+  console.log("websnip", webSnippet)
     // NOT USED ON WEBSITE CURRENTLY [I THINK]:
   var catalogueNo = document.getElementById("catalogueNo").value
   var datesOfComposition = document.getElementById("datesOfComposition").value
@@ -145,6 +151,9 @@ function save2FB() {
   var equipment = document.getElementById("equipment").value
   var spotifyStatus = document.getElementById("spotifyStatus").value
   var spotifyID = document.getElementById("spotifyID").value
+  var youTubeID = document.getElementById("youTubeID").value
+  var soundcloudID = document.getElementById("soundcloudID").value
+  var image = document.getElementById("image").value
   var notesOnCompositionDates = document.getElementById("notesOnCompositionDates").value
   var dedication = document.getElementById("dedication").value
   var performed = document.getElementById("performed").value
@@ -187,6 +196,10 @@ if (titleList.includes(work))
         scoreAvail: scoreAvail,
         scoreLink: scoreLink,
         scoreText: scoreText,
+        parts: parts,
+        softwareLink: softwareLink,
+        downloadMedia: downloadMedia,
+        gitHub: gitHub,
         loadScripts: loadScripts,
         webSnippet: webSnippet,
         webPage: webPage,
@@ -202,11 +215,15 @@ if (titleList.includes(work))
         equipment: equipment,
         spotifyStatus: spotifyStatus,
         spotifyID: spotifyID,
+        soundcloudID: soundcloudID,
+        youTubeID: youTubeID,
+        image: image,
         notesOnCompositionDates: notesOnCompositionDates,
         dedication: dedication,
         performed: performed,
         chamber_players: chamber_players
       }
+      console.log("data", data)
       setDoc(docRef, data, { merge: true })
 
       .then(docRef => {
@@ -252,6 +269,10 @@ const colRef = collection(db, "works")
     scoreAvail: scoreAvail,
     scoreLink: scoreLink,
     scoreText: scoreText,
+    parts: parts,
+    softwareLink: softwareLink,
+    downloadMedia: downloadMedia,
+    gitHub: gitHub,
     webPage: webPage,
     additionalInfo: additionalInfo,
     moreInfo: moreInfo,
@@ -266,6 +287,10 @@ const colRef = collection(db, "works")
     recordingLink: recordingLink,
     equipment: equipment,
     spotifyStatus: spotifyStatus,
+    spotifyID: spotifyID,
+    youTubeID: youTubeID,
+    soundcloudID: soundcloudID,
+    image: image,
     notesOnCompositionDates: notesOnCompositionDates,
     dedication: dedication,
     performed: performed,
@@ -314,7 +339,9 @@ function grabDocumentFromFireBase()
           }
         } 
         else if (document.getElementById(key))
-        { document.getElementById(key).value = dataz[key]
+        { 
+          // console.log(dataz[key])
+          document.getElementById(key).value = dataz[key]
         }
      })
 
@@ -326,7 +353,7 @@ function grabDocumentFromFireBase()
     // }
     //  };
 
-document.getElementById("whole-entry").textContent = txt;
+// document.getElementById("whole-entry").textContent = txt;
 getActiveCategories()
 
 

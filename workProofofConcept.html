@@ -97,6 +97,16 @@ align-self: stretch;
   font-style: italic;
 }
 
+.work-image {
+  width: 320px;
+  /* height: 100%; */
+  object-fit: contain;
+}
+
+#resetButton {
+  visibility: hidden;
+}
+
 /* details.score[open] summary::after {
   content: "Hide Score";
 }
@@ -146,48 +156,12 @@ details.score:not([open]) summary::after {
       <input type="text" id="link-box" class="search" placeholder="title/year/instrument">
       <!-- <input type="text" id="link-box" class="search" placeholder="title/year/instrument" onkeydown="if (event.keyCode == 13)
       goTo()"> -->
-     <input type="button" id="searchButton" value="Search" class="go">
+     <!-- <input type="button" id="searchButton" value="Search" class="go"> -->
      <input type="button" id="randomButton" value="Random Piece!" class="go">
+     <input type="button" id="resetButton" value="Reset" class="go">
      </div>
     
-     <section id="worksSection" class="works">
-        <!-- <h1>Thought Music <span class="year">(2022)</span> <span class="duration">[-']</span></h1>
-
-        <ul>
-            <li>
-            <p class="format">interactive web page (for use by anybody): text input converted into music and can be played back and saved to a database</p>     <a href="">[use it here]</a>
-        </li>
-        <li><img class="media" src="/img/teapot.jpeg" alt=""></li>
-
-        <li><span><a href="">[orchestral]</a><a href="">[chamber]</a></span>
-            </li>
-        </ul>
-
-            <h1>Circum (after James Joyce) (2022) [8']</h1>
-    <ul>
-        <li><p>any instruments, performing from a projected animated score (originally: accordion, flute, percussion, soprano)</p>
-            <p class="commission">Commissioned by Between Feathers</p>
-            <p class="weblink">open web page</p></li>
-        </li>
-        <li></li>
-        <li><p>list of categories</p></li>
-    </ul>
-    <h1>Stolen Music v 1 (2022) [10']</h1>
-                <ul>
-                    <li><p>fixed-media multi-channel video, diffused stereo sound, printed text materials, audience members with kazoos, interactive website and live narration
-                    </p></li></li><li></li>
-                </ul>
-    <h1>String Quartet 12 (2027) [10']</h1>
-        <ul><li><p>string quartet
-        </p></li><li></li></ul>
-        <h1>String Quartet 12 (2027) [10']</h1>
-        <ul><li><p>string quartet
-        </p></li><li></li></ul>
-        <h1>String Quartet 12 (2027) [10']</h1>
-        <ul><li><p>string quartet
-        </p></li><li></li></ul> -->
-    <!-- <div id="docs"></div> -->
-    </section>
+     <section id="worksSection" class="works"></section>
 
     </div>
     

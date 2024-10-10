@@ -13,10 +13,55 @@
   
   
   <style>
+
+    body {
+      line-height: 140%;
+    }
+
     table, th, td {
   border: 1px solid;
   border-collapse: collapse;
   table-layout: fixed;
+}
+
+input[type=text] {
+width: 70vw;
+max-width: 360px;
+
+}
+
+textarea {
+  width: 90vw;
+  max-width: 720px;
+  height: 10vh
+}
+
+.wrapper{
+  /* height: 120px; */
+  /* width: 100vw; */
+  display: flex;
+  justify-content: center;
+  /* background: #1d1e22; */
+    /* padding: 1em; */
+
+}
+
+.container{
+  /* color: white; */
+  /* font-size: 1.5em; */
+  width: 80%;
+  /* padding: 1em; */
+  /* background: #363840; */
+  border-radius: 1em;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  
+}
+
+.category {
+  padding: 1em 0em;
+  /* width: 20%;   */
 }
 
 #table tr:nth-child(even){background-color: #f2f2f2;}
@@ -27,42 +72,64 @@
 </head>
 <body >
   
-  <h1  class="no-print" style="text-align:center; z-index:1;">EDIT WORKS DATABASE</h1>
+  <h1  class="no-print" style="z-index:1;">EDIT WORKS DATABASE</h1>
   <button id="signin">SIGNIN</button><br>
+  
+  <div class="no-print">
+    <label class="no-print">Show a previously composed score: <select name="existingScores" id="existingScores">
+      <option value="none">None</option>
+    </select></label>
+  </div>
   <!--1: add field here-->
   <label class="no-print" >Work: <input id="work" type="text" placeholder="..."></label><br>
   <label class="no-print" >Index: <input id="index" type="text" placeholder="..."></label>  <span>Latest index number is: <span id="highestindex"></span></span><br>
   <label class="no-print" >Cat. No: <input id="catalogueNo" type="text" placeholder="..."></label>  <span>Latest catalogue number is: <span id="highestcat"></span></span><br>
 
-  <label class="no-print" >Categories: <input id="categories" type="text" placeholder="..."></label><br>
+<div class="wrapper">
+  <div class="container">
+    <div class="categories"><label class="no-print" >Categories: <input id="categories" type="text" placeholder="..."></label><br>
 
-  <label><input class="category" type="checkbox" id="all" value="all"> all</label><br>
-  <label><input class="category" type="checkbox" id="large" value="large"> large</label><br>
-  <label><input class="category" type="checkbox" id="chamber" value="chamber"> chamber</label><br>
-  <label><input class="category" type="checkbox" id="solo" value="solo"> solo</label><br>
-  <label><input class="category" type="checkbox" id="elec" value="elec"> elec</label><br>
-  <label><input class="category" type="checkbox" id="gen" value="gen"> gen</label><br>
-  <label><input class="category" type="checkbox" id="inter" value="inter"> inter</label><br>
-  <label><input class="category" type="checkbox" id="event" value="event"> event</label><br>
-  <label><input class="category" type="checkbox" id="inst" value="inst"> inst</label><br>
-  <label><input class="category" type="checkbox" id="vocal" value="vocal"> vocal</label><br>
+      <label><input class="category" type="checkbox" id="all" value="all"> all</label><br>
+      <label><input class="category" type="checkbox" id="large" value="large"> large</label><br>
+      <label><input class="category" type="checkbox" id="chamber" value="chamber"> chamber</label><br>
+      <label><input class="category" type="checkbox" id="solo" value="solo"> solo</label><br>
+      <label><input class="category" type="checkbox" id="elec" value="elec"> elec</label><br>
+      <label><input class="category" type="checkbox" id="gen" value="gen"> gen</label><br>
+      <label><input class="category" type="checkbox" id="inter" value="inter"> inter</label><br>
+      <label><input class="category" type="checkbox" id="event" value="event"> event</label><br>
+      <label><input class="category" type="checkbox" id="inst" value="inst"> inst</label><br>
+      <label><input class="category" type="checkbox" id="vocal" value="vocal"> vocal</label><br>
+      <label><input class="category" type="checkbox" id="writing" value="writing"> writing</label><br>
+      <label><input class="category" type="checkbox" id="software" value="software"> software</label><br>
+      <label><input class="category" type="checkbox" id="performance" value="performance"> performance</label><br>
+      <label><input class="category" type="checkbox" id="project" value="project"> project</label><br></div>
+  </div>
+</div>
+  
+
+
   <!-- <label class="no-print" >ID: [PRIVATE/DEPRECATE]<input id="id" type="text" placeholder="..."></label><br> -->
   <label class="no-print" >Year: <input id="yearOfComposition" type="text" placeholder="..."></label><br>
   <label class="no-print" >Dates: [PRIVATE]<input id="datesOfComposition" type="text" placeholder="..."></label><br>
   <label class="no-print" >DatesExact?: [PRIVATE]<input id="datesOfCompositionExact" type="text" placeholder="..."></label><br>
   <label class="no-print" >Revised: <input id="rev" type="text" value="N/A" placeholder="..."></label><br>
-  <label class="no-print" >Instrumentation: <input id="instrumentation" type="text" placeholder="..."></label><br>
+  <label class="no-print" >Instrumentation: <input id="instrumentation" type=AlbBiab4000wth
+    3"text" placeholder="..."></label><br>
   <label class="no-print" >Dur: <input id="dur" type="dur" placeholder="..."></label><br>
   <label class="no-print" >Mvts: [PRIVATE?]<input id="mvts" type="mvts" placeholder="..." value="N/A" ></label><br>
   <label class="no-print" >scoreAvail: <input id="scoreAvail" type="text" value="0" placeholder="..."></label><br>
   <label class="no-print" >scoreLink: <input id="scoreLink" type="text" value="N/A" placeholder="..."></label><br>
-  <label class="no-print" >scoreText: <input id="scoreText" type="text" value="N/A" placeholder="..."></label><br>
+  <label class="no-print" >scoreText: <br><textarea id="scoreText" type="text" value="N/A" placeholder="..."></textarea></label><br>
+  <label class="no-print" >parts: <input id="parts" type="text" placeholder="..."></label><br>
+  <label class="no-print" >softwareLink: <input id="softwareLink" type="text" placeholder="..."></label><span>//name of zip file in /dl folder</span><br>
+  <label class="no-print" >downloadMedia: <input id="downloadMedia" type="text" placeholder="..."></label><span> // full URL of a zip file or download folder of downloadable media</span><br>
+  <label class="no-print" >gitHub: <input id="gitHub" type="text" placeholder="..."></label><br>
   <label class="no-print" >programmeNote: <input id="programmeNote" type="text" value="N/A" placeholder="N/A"></label><br>
   <label class="no-print" >commissioned: <input id="commissioned" type="text" value="N/A" placeholder="N/A"></label><br>
   <label class="no-print" >additionalInfo: [NOT USED YET?]<input id="additionalInfo" type="text" placeholder="..."></label><br>
   <label class="no-print" >loadScripts: <input id="loadScripts" type="text" placeholder="..."></label><br>
-  <label class="no-print" >moreInfo: <input id="moreInfo" type="text" placeholder="..."></label><br>
-  <label class="no-print" >webSnippet: <input id="webSnippet" type="text" placeholder="..."></label><br>
+  <label class="no-print" >moreInfo: <br><textarea class="biginput" id="moreInfo" type="text" placeholder="..."></textarea></label><br>
+  <label class="no-print" >webSnippet: <br><textarea class="biginput"id="webSnippet" type="text" placeholder="..."></textarea></label><br>
   <label class="no-print" >webPage: <input id="webPage" type="text" placeholder="..."></label><br>
   <label class="no-print" >embed: Put Embed Code (e.g. full embed data) in here<input id="embed" type="text" placeholder="..."></label><br>
   <label class="no-print" >recordingLinkWeb:  [PRIVATE]<input id="recordingLinkWeb" type="text" placeholder="..."></label><br>
@@ -72,28 +139,27 @@
   <!-- <label class="no-print" >programmeNoteNewTab [DEPRECATED]: <input id="programmeNoteNewTab" type="text" placeholder="..."></label><br> -->
   <label class="no-print" >spotifyStatus: <input id="spotifyStatus" type="text" placeholder="..."></label><br>
   <label class="no-print" >spotifyID: <input id="spotifyID" type="text" placeholder="..."></label><br>
+
+  <label class="no-print" >youTubeID: <input id="youTubeID" type="text" placeholder="..."></label><br>
+  <label class="no-print" >soundcloudID: <input id="soundcloudID" type="text" placeholder="..."></label><span>track ID only, otherwise playlist followed by playlist ID<span id="highestcat"></span></span><br>
+  <label class="no-print" >image: <input id="image" type="text" placeholder="..."></label><span> // relative image URL</span><br>
   <label class="no-print" >notesOnCompositionDates: <input id="notesOnCompositionDates" type="text" placeholder="..."></label><br>
   <label class="no-print" >webPage: [NOT USED YET?]<input id="webPage" type="text" placeholder="..."></label><br>
   <label class="no-print" >dedication:  [PRIVATE]<input id="dedication" type="text" placeholder="..."></label><br>
   <label class="no-print" >performed: <input id="performed" type="text" placeholder="..."></label><br>
   <label class="no-print" >withdrawn:  [PRIVATE]<input id="withdrawn" type="text" placeholder="..."></label><br>
   <label class="no-print" >chamber_players:  [PRIVATE]<input id="chamber_players" type="text" placeholder="..."></label>
-
+  <div class="no-print"><label>Save my score in Sebastian's database: 
+    <button style="text-align: center;" class="no-print" value="true" id="save-to-firebase" onclick="save2FB()">IMMORTALISE</button> </label></div>
 
 
     
-  <div class="no-print"><label>Save my score in Sebastian's database: 
-    <button style="text-align: center;" class="no-print" value="true" id="save-to-firebase" onclick="save2FB()">IMMORTALISE</button> </label></div>
-  <div class="no-print">
-    <label class="no-print">Show a previously composed score: <select name="existingScores" id="existingScores">
-      <option value="none">None</option>
-    </select></label>
-  </div>
-  <p>NOTE: scoreFormLink is deprecated</p>
-  <div id="whole-entry"></div> <!--display whole score--> 
+  
+  <!-- <p>NOTE: scoreFormLink is deprecated</p>
+  <div id="whole-entry"></div> 
   <table id="table">
     <tr>
-      <!--2: add field here--> 
+      2: add field here
       <th>Work</th>
       <th>Index</th>
       <th>Cat. No</th>
@@ -137,7 +203,7 @@
 
 
     </tr>
-  </table>
+  </table> -->
 
  
 </body>
