@@ -8,7 +8,7 @@ sdsd
 */
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
-import { getFirestore, collection, query, where, doc, setDoc, orderBy, addDoc, onSnapshot, Timestamp} from "https://www.gstatic.com/firebasejs/9.10.0/firebase-firestore.js"
+import { getFirestore, collection, query, where, doc, setDoc, orderBy, addDoc, onSnapshot, Timestamp, enableIndexedDbPersistence} from "https://www.gstatic.com/firebasejs/9.10.0/firebase-firestore.js"
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-analytics.js";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js';
 
@@ -69,7 +69,8 @@ const firebaseConfig = {
 
 
 
-const db = getFirestore()
+export const db = getFirestore()
+offlinePersistence(db)
 
 
 
@@ -531,3 +532,23 @@ return catArray
     return maxIndNum
     
   }
+
+
+
+  function offlinePersistence(db){
+    enableIndexedDbPersistence(db)
+    .then(() => console.log("Enabled offline persistence"))
+    .catch((error) => {
+      if (error.code == "failed-precondition") {
+        // Multiple tabs open, persistence can only be enabled
+        // in one tab at a a time.
+        // ...
+      } else if (error.code == "unimplemented") {
+        // The current browser does not support all of the
+        // features required to enable persistence
+        // ...
+      }
+    });
+
+    console.log("db", db)
+}

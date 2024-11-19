@@ -1,6 +1,6 @@
-// next step is to add the category selection back in
-// and to fix bug where javascript is re-defined and broken when a page is re-set
-
+// next step is to create link to category display on each category button
+// fix mistakes in database
+// improve layout
 
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js'
 import {
@@ -8,6 +8,7 @@ import {
     connectFirestoreEmulator, enableIndexedDbPersistence,
  } from 'https://www.gstatic.com/firebasejs/9.17.2/firebase-firestore.js'
 
+ document.scriptList = []
 
  const firebaseConfig = {
     apiKey: "AIzaSyCow7QEwQRTPcjXunO2hQvdlRmUBJiqcnU",
@@ -31,11 +32,11 @@ export const db = getFirestore(app);
 
 offlinePersistence(db)
 
-let selectedCategory = "all"
+// let selectedCategory = "all"
 // start after explained here: https://cloud.google.com/firestore/docs/query-data/query-cursors
 const colRef = query(collection(db, 'works'),
                     limit(queryLimit), 
-                    where("category", "array-contains", `${selectedCategory}`),
+                    // where("category", "array-contains", `${selectedCategory}`),
                     orderBy(("index"), "desc"))
 //get collection data
 
@@ -55,6 +56,7 @@ function firebaseRequest(colRef){
       return worksArray})
 .then((worksArray) => {
     console.log("works: ", worksArray)
+    addCategoryListener()
     addSearchListener()
     addRandomListener()
     addResetListener()
@@ -84,6 +86,9 @@ function processItem(d, itemIndex) // takes an array containing in each position
 {
     if (d.work === undefined) {return}
     if (d.withdrawn === "Yes") {return}
+    let e = document.getElementById("category")
+    console.log(e.options[e.selectedIndex].value)
+    if (!(d.category.includes(e.options[e.selectedIndex].value))) {return}
     var search = document.getElementById('link-box').value.toLowerCase();
     console.log("search is now", search) 
     if (!(searchLogic(d, search))) {return}
@@ -147,6 +152,7 @@ function itemDetails(d){
         linkButton(info, d.programmeNote, "[programme note]")
     //parts
     if (d.parts){
+        // add line to check if d.work.zip exists and if not, use the ID number
         linkButton(info, `parts/${d.work}.zip`, "[download instrumental parts]")
     }
     }
@@ -389,7 +395,7 @@ function loadWebSnippet(snippet){
     return d
 }
 
-// need to add a check for if scripts exist already to get around dynamic reloading.
+// need to ensure that no scripts called in this way will re-assign identifiers when the relevant code is deleted and re-created e.g. by changing const or let to var
 const getScript=(url)=>{
     var script = document.createElement('script');
     script.setAttribute('type', 'text/javascript');
@@ -397,8 +403,10 @@ const getScript=(url)=>{
     script.async = false
     if(document.body == null){
         document.head.appendChild(script);
+        document.scriptList.push(url)
     }else{
         document.body.appendChild(script);
+        document.scriptList.push(url)
     }
     console.log(`script ${url} has been added to DOM`)
 }
@@ -421,6 +429,16 @@ function searchLogic(d, search){
       { return true}
 }
 
+function addCategoryListener() {
+    const cat = document.getElementById("category")
+    cat.addEventListener(
+        'change', function() {
+            clearWorks()
+            processRequest(document.worksArray) 
+        }, false
+    )
+    
+}
 
 function addSearchListener() {
   
@@ -484,5 +502,4 @@ function addResetListener() {
           function clearWorks(){
             document.getElementById("worksSection").innerHTML = ""; 
           }
-
 

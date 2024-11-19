@@ -3,7 +3,7 @@ Simplify current code
 
 Add license page (like a manifesto)
 
-
+go through piece library and pull all writing (academic / technical commentary) into a central folder and similar for programme notes
 
 media portion priority:
 web-snippet > youtube > spotify > soundcloud > image 
